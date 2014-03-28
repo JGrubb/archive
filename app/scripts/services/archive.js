@@ -19,7 +19,7 @@ angular.module('archiveApp')
           'identifier',
           'title' ],
           'sort[]': [ 'date desc', '', '' ],
-          rows: '200',
+          rows: '1500',
           page: '1',
           indent: 'yes',
           output: 'json',

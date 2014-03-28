@@ -1,3 +1,18 @@
-<div ng-repeat="show in shows">
-  <h3 ui-sref="detail({ id: show.identifier })">{{ show.title }}</h3>
+<div class="row">
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Show</th>
+      <th>Rating</th>
+      <th>Downloads</th>
+      <th>View Detail</th>
+    </tr>
+    <tr ng-repeat="show in shows">
+      <td>{{ show.date | date : date : shortDate }}</td>
+      <td ui-sref="detail({ id: show.identifier })">{{ show.title }}</td>
+      <td>{{ show.avg_rating }}</td>
+      <td>{{ show.downloads }}</td>
+      <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Holler</a></td>
+    </tr>
+  </table>
 </div>
