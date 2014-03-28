@@ -14,6 +14,8 @@ angular.module('archiveApp', [
       controller: 'ListController'
     })
     .state('detail',  {
-      
+      url: '/detail/:id',
+      templateUrl: 'views/detail.html',
+      controller: 'DetailController'
     });
   });

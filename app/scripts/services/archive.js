@@ -34,6 +34,7 @@ angular.module('archiveApp')
         method: 'JSONP',
         url: archiveShowUrl + id,
         params: {
+          output: 'json',
           callback: 'JSON_CALLBACK'
         }
       });

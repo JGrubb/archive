@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('DetailCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('DetailController', function ($scope, archive, $stateParams) {
+    console.log('food');
+    archive.getShow($stateParams.id).success(function(data) {
+      console.log(data);
+    });
   });
