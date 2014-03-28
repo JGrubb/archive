@@ -1,15 +1,11 @@
 'use strict';
 
 angular.module('archiveApp', [
-  'ngRoute'
+  'ui.router'
 ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+  .config(function($stateProvider, $urlRouterProvider) {
+    $stateProvider.state('list', {
+      url: '/',
+      templateUrl: 'views/main.html'
+    }) 
   });
