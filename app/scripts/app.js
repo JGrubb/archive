@@ -2,7 +2,8 @@
 
 angular.module('archiveApp', [
   'ui.router',
-  'ngGrid'
+  'ngGrid',
+  'LocalStorageModule'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {

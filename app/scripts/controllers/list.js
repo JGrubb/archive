@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('ListController', function ($scope, archive, $stateParams) {
+  .controller('ListController', function ($scope, Archive, $stateParams) {
 
-    archive.getList($stateParams.collection)
-    .success(function(data) {
+    Archive.getList($stateParams.collection)
+    .then(function(data) {
       console.log(data);
       $scope.shows = data.response.docs;
     });
