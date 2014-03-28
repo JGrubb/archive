@@ -9,4 +9,6 @@ angular.module('archiveApp')
       $scope.shows = data.response.docs;
     });
 
+    $scope.gridOptions = { data: 'shows' };
+
   });

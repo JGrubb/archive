@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('archiveApp', [
-  'ui.router'
+  'ui.router',
+  'ngGrid'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {
