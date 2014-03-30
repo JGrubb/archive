@@ -27,8 +27,8 @@
       <th>Downloads</th>
       <th>View Detail</th>
     </tr>
-    <tr ng-repeat="show in shows | orderBy:order | filter:yearOf | limitTo:limit">
-      <td>{{ show.date | date : date : shortDate }}</td>
+    <tr ng-repeat="show in shows | orderBy:order | filter:{ year:yearOf } | limitTo:limit">
+      <td>{{ show.date | date : shortDate }}</td>
       <td ui-sref="detail({ id: show.identifier })">{{ show.title }}</td>
       <td>{{ show.avg_rating }}</td>
       <td>{{ show.downloads }}</td>

@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('archiveApp')
   .factory('Archive', function ($http, $q, localStorageService) {
     var ls = localStorageService;
@@ -35,6 +33,7 @@ angular.module('archiveApp')
             'downloads',
             'description',
             'identifier',
+            'year',
             'title' ],
             'sort[]': [ 'date desc', '', '' ],
             rows: '10000',

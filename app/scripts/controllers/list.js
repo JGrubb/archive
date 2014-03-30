@@ -10,12 +10,10 @@ angular.module('archiveApp')
   .then(function(data) {
     fullSet = data.response.docs;
 
-    var years = _.uniq(_.map(_.pluck(fullSet, 'date'), function(item) {
-      return parseInt(item.slice(0, 4), 10);
-    }), true);
+    var years = _.uniq(_.pluck(fullSet, 'year'));
 
     $scope.shows = fullSet;
-    console.log(fullSet[0]);
+    console.log(fullSet);
     $scope.years = years;
     $scope.years.push('All');
     //$scope.yearOf = years.slice(0)[0];
