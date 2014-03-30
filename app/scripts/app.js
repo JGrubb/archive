@@ -2,8 +2,10 @@
 
 angular.module('archiveApp', [
   'ui.router',
-  'ngGrid',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'chieffancypants.loadingBar',
+  'infinite-scroll',
+  'underscore'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {
@@ -21,3 +23,9 @@ angular.module('archiveApp', [
       controller: 'DetailController'
     });
   });
+
+
+var underscore = angular.module('underscore', []);
+underscore.factory('_', function() {
+  return window._; // assumes underscore has already been loaded on the page
+});

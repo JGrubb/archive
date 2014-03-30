@@ -5,13 +5,25 @@ angular.module('archiveApp')
     var ls = localStorageService;
     var archiveSearchUrl = 'https://archive.org/advancedsearch.php';
     var archiveShowUrl = 'https://archive.org/details/';
+
+    var requestIndex = function() {
+      var d = $q.defer();
+      if (ls.get('idx')) {
+        d.resolve(ls.get('idx'))
+      } else {
+        $http.get('index.json').success(function(data) {
+          d.resolve(data);
+          ls.set('idx', data);
+        });
+      }
+      return d.promise;
+    }
+
     var requestList = function(collection) {
       var d = $q.defer();
       if (ls.get(collection)) {
         d.resolve(ls.get(collection));
-        console.log(ls.get(collection));
       } else {
-        console.log('not stored');
         $http({
           method: 'JSONP',
           url: archiveSearchUrl,
@@ -25,7 +37,7 @@ angular.module('archiveApp')
             'identifier',
             'title' ],
             'sort[]': [ 'date desc', '', '' ],
-            rows: '1500',
+            rows: '10000',
             page: '1',
             indent: 'yes',
             output: 'json',
@@ -63,6 +75,9 @@ angular.module('archiveApp')
     }
 
     return {
+      getIndex: function() {
+        return requestIndex();
+      },
       getList: function(collection) {
         return requestList(collection);
       },

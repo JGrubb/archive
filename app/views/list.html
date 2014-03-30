@@ -1,5 +1,22 @@
 <div class="row">
-  <table>
+
+  <div class="large-6 columns">
+    <label>Year
+      <select ng-model="yearOf" ng-options="year for year in years">
+        <option value="">-- all --</option>
+      </select>
+    </label>
+  </div>
+  <div class="large-6 columns">
+    <label>Order by
+      <select ng-model="order">
+        <option value="-date" selected="selected">Date</option>
+        <option value="-downloads">Downloads</option>
+        <option value="-avg_rating">Average Rating</option>
+      </select>
+    </label>
+  </div>
+  <table class="large-12 column" infinite-scroll="loadMore()">
     <tr>
       <th>Date</th>
       <th>Show</th>
@@ -7,12 +24,12 @@
       <th>Downloads</th>
       <th>View Detail</th>
     </tr>
-    <tr ng-repeat="show in shows">
+    <tr ng-repeat="show in shows | orderBy:order | filter:yearOf | limitTo:limit">
       <td>{{ show.date | date : date : shortDate }}</td>
       <td ui-sref="detail({ id: show.identifier })">{{ show.title }}</td>
       <td>{{ show.avg_rating }}</td>
       <td>{{ show.downloads }}</td>
-      <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Holler</a></td>
+      <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Detail</a></td>
     </tr>
   </table>
 </div>

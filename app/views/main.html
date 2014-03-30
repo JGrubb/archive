@@ -1,4 +1,8 @@
 <div class="row">
-  <div id="list" ui-view="list"></div>
-  <div id="detail" ui-view="detail"></div>
+  <div class="large-6 column">
+    <input ng-model="query" type="text" placeholder="Search here...">
+  </div>
+  <div ng-repeat="band in bands | filter:query | limitTo:50" class="large-12 column">
+    <h5><a ui-sref="list({ collection: band.collection })">{{ band.name }}</a></h5>
+  </div>
 </div>

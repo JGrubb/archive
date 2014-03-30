@@ -12,15 +12,12 @@ angular.module('archiveApp')
       var years = _.uniq(_.map(_.pluck(fullSet, 'date'), function(item) {
         return parseInt(item.slice(0, 4), 10);
       }), true);
+      console.log(years);
 
       $scope.shows = fullSet;
-      console.log(fullSet[0]);
       $scope.years = years;
-      //$scope.yearOf = years.slice(0)[0];
-      $scope.limit = 20;
+      $scope.year = years.slice(-1)[0];
     });
 
-    $scope.loadMore = function() {
-      $scope.limit += 20;
-    }
+
   });
