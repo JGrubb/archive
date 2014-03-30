@@ -1,11 +1,7 @@
 <div class="row">
 
-  <div class="large-6 columns">
-    <label>Year
-      <select ng-model="yearOf" ng-options="year for year in years">
-        <option value="">-- all --</option>
-      </select>
-    </label>
+  <div class="large-12 columns">
+    <button class="tiny button" ng-repeat="year in years" ng-click="setYear(year)">{{ year }}</button>
   </div>
   <div class="large-6 columns">
     <label>Order by

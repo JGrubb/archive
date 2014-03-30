@@ -23,4 +23,8 @@ angular.module('archiveApp')
     $scope.loadMore = function() {
       $scope.limit += 20;
     }
+
+    $scope.setYear = function(year) {
+      $scope.yearOf = year;
+    }
   });

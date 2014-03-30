@@ -10,6 +10,7 @@ angular.module('archiveApp')
       $scope.reviews = data.reviews;
       $scope.files = data.files;
       $scope.misc = data.misc;
+      $scope.filePath = 'http://archive.org/download/' + data.metadata.identifier[0] + '/' + data.metadata.identifier[0] + '_vbr_mp3.zip';
 
     });
   });
