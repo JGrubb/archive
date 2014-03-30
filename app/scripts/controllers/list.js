@@ -22,18 +22,18 @@ angular.module('archiveApp')
     $scope.limit = 20;
   });
 
-$scope.loadMore = function() {
-  $scope.limit += 20;
-}
-console.log($stateParams);
-
-$scope.yearOf = $stateParams.year;
-
-$scope.setYear = function(year) {
-  if (year === 'All') {
-    $scope.yearOf = undefined;
-  } else {
-    $scope.yearOf = year;
+  $scope.loadMore = function() {
+    $scope.limit += 20;
   }
-}
+  console.log($stateParams);
+
+  $scope.yearOf = $stateParams.year;
+
+  $scope.setYear = function(year) {
+    if (year === 'All') {
+      $scope.yearOf = undefined;
+    } else {
+      $scope.yearOf = year;
+    }
+  }
 } ]);
