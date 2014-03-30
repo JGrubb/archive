@@ -7,4 +7,10 @@ angular.module('archiveApp')
       $scope.bands = data;
     });
 
+    $scope.limit = 60;
+
+    $scope.loadMore = function() {
+      $scope.limit += 60;
+    }
+
   });
