@@ -9,6 +9,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
@@ -36,18 +37,23 @@
     <div class="container" ng-controller="MainController">
       <div id="main" class="row">
         <div ng-cloak id="player" class="ng-cloak column large-4">
-          <nav>
-            <button class="tiny control prev" ng-click="player.previous()">Prev</button>
-            <button class="tiny control play" ng-click="player.play()" ng-hide="player.playing">Play</button>
-            <button class="tiny control pause" ng-click="player.pause()" ng-show="player.playing">Pause</button>
-            <button class="tiny control next" ng-click="player.next()">Next</button>
-          </nav>
-          <ul id="playlist">
-            <li ng-repeat="track in playlist"
-                ng-class="{current: player.current == $index}"
-                ng-click="player.play($index)">
-            </li>
-          </ul>
+          <div class="inner">
+            <nav>
+              <button class="tiny control prev" ng-click="player.previous()"><i class="fa fa-fast-backward fa-2"></i></button>
+              <button class="tiny control play" ng-click="player.play()" ng-hide="player.playing"><i class="fa fa-play fa-2"></i></button>
+              <button class="tiny control pause" ng-click="player.pause()" ng-show="player.playing"><i class="fa fa-pause fa-2"></i></button>
+              <button class="tiny control next" ng-click="player.next()"><i class="fa fa-fast-forward fa-2"></i></button>
+            </nav>
+            <ul id="playlist">
+              <li ng-repeat="track in player.playlist"
+              ng-class="{current: player.current == $index}"
+              ng-click="player.play($index)">
+              <span ng-click="player.playlist.remove(track)"><i class="fa fa-minus-square"></i></span>
+              <span ng-click="player.play($index)"><i class="fa fa-play-circle"></i></span>
+              {{ track[0].title }}
+              </li>
+            </ul>
+          </div>
         </div>
         <div id="body" class="column large-8" ui-view></div>
       </div>
@@ -82,6 +88,7 @@
     <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
     <script src="bower_components/ngInfiniteScroll/ng-infinite-scroll.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

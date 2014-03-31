@@ -1,8 +1,30 @@
-header,
-#player {
-  position: fixed;
-}
 
 .ng-cloak {
   display: none;
+}
+
+#player {
+  .inner {
+    position: fixed;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    margin: 0;
+    padding-left: .5em;
+    &.current {
+      background: #eee;
+    }
+    span {
+      opacity: .1;
+      transition: .3s all;
+      font-size: 1.2em;
+    }
+    &:hover span {
+      opacity: 1;
+    }
+  }
 }

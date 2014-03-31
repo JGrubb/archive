@@ -7,6 +7,8 @@ angular.module('archiveApp')
       $scope.bands = data;
     });
 
+    $scope.player = Player;
+
     $scope.limit = 60;
 
     $scope.loadMore = function() {

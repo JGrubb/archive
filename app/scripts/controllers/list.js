@@ -13,7 +13,6 @@ angular.module('archiveApp')
     var years = _.uniq(_.pluck(fullSet, 'year'));
 
     $scope.shows = fullSet;
-    console.log(fullSet);
     $scope.years = years;
     $scope.years.push('All');
     //$scope.yearOf = years.slice(0)[0];
@@ -24,7 +23,6 @@ angular.module('archiveApp')
   $scope.loadMore = function() {
     $scope.limit += 20;
   }
-  console.log($stateParams);
 
   $scope.yearOf = $stateParams.year;
 

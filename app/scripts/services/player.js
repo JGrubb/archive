@@ -5,10 +5,7 @@ angular.module('archiveApp')
     var player,
     playlist = [],
     paused = false,
-    current = {
-      album: 0,
-    track: 0
-    };
+    current = 0;
 
   player = {
     playlist: playlist,
@@ -17,13 +14,12 @@ angular.module('archiveApp')
 
     playing: false,
 
-    play: function(track, album) {
+    play: function(track) {
       if (!playlist.length) return;
 
-      if (angular.isDefined(track)) current.track = track;
-      if (angular.isDefined(album)) current.album = album;
+      if (angular.isDefined(track)) player.current = track;
 
-      if (!paused) audio.src = playlist[current.album].tracks[current.track].url;
+      if (!paused) audio.src = 'http://' + playlist[player.current][0].server + playlist[player.current][0].dir + playlist[player.current][0].path;
       audio.play();
       player.playing = true;
       paused = false;
@@ -39,18 +35,16 @@ angular.module('archiveApp')
 
     reset: function() {
       player.pause();
-      current.album = 0;
-      current.track = 0;
+      current = 0;
     },
 
     next: function() {
       if (!playlist.length) return;
       paused = false;
-      if (playlist[current.album].tracks.length > (current.track + 1)) {
-        current.track++;
+      if (playlist[current][0].length > (current + 1)) {
+        current++;
       } else {
-        current.track = 0;
-        current.album = (current.album + 1) % playlist.length;
+        current = 0;
       }
       if (player.playing) player.play();
     },
@@ -58,24 +52,24 @@ angular.module('archiveApp')
     previous: function() {
       if (!playlist.length) return;
       paused = false;
-      if (current.track > 0) {
-        current.track--;
+      if (current > 0) {
+        current--;
       } else {
-        current.album = (current.album - 1 + playlist.length) % playlist.length;
-        current.track = playlist[current.album].tracks.length - 1;
+        current.track = playlist.length - 1;
       }
       if (player.playing) player.play();
     }
   };
 
-  playlist.add = function(album) {
-    if (playlist.indexOf(album) != -1) return;
-    playlist.push(album);
+  playlist.add = function(track) {
+    if (playlist.indexOf(track) != -1) return;
+    playlist.push(track);
+    console.log(playlist);
   };
 
-  playlist.remove = function(album) {
-    var index = playlist.indexOf(album);
-    if (index == current.album) player.reset();
+  playlist.remove = function(track) {
+    var index = playlist.indexOf(track);
+    if (index == current) player.reset();
     playlist.splice(index, 1);
   };
 
