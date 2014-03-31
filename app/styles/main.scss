@@ -3,6 +3,13 @@
   display: none;
 }
 
+.control {
+  display: inline-block;
+  color: white;
+  width: 5em;
+  margin-bottom: 0
+}
+
 #player {
   .inner {
     position: fixed;

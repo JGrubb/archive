@@ -20,18 +20,18 @@ angular.module('archiveApp')
         }
 
         var notTracks = _.filter(data.files, function(item) {
-          return typeof item.track === 'undefined';
+          return !item.hasOwnProperty('length');
         });
         
         //console.log(notTracks);
 
         var tracks = _.filter(data.files, function(item) {
-          return item.format === 'VBR MP3' || item.format === 'Ogg Vorbis';
+          return item.format === 'VBR MP3';
         });
 
-        tracks = _.groupBy(tracks, function(item) {
-          return item.track;
-        });
+        //tracks = _.groupBy(tracks, function(item) {
+        //  return item.track;
+        //});
 
         //console.log(tracks);
         $scope.notTracks = notTracks;

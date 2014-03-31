@@ -18,8 +18,9 @@ angular.module('archiveApp')
       if (!playlist.length) return;
 
       if (angular.isDefined(track)) player.current = track;
+      console.log('helo');
 
-      if (!paused) audio.src = 'http://' + playlist[player.current][0].server + playlist[player.current][0].dir + playlist[player.current][0].path;
+      if (!paused) audio.src = 'http://' + playlist[player.current].server + playlist[player.current].dir + playlist[player.current].path;
       audio.play();
       player.playing = true;
       paused = false;
@@ -41,7 +42,7 @@ angular.module('archiveApp')
     next: function() {
       if (!playlist.length) return;
       paused = false;
-      if (playlist[current][0].length > (current + 1)) {
+      if (playlist[current].length > (current + 1)) {
         current++;
       } else {
         current = 0;
@@ -64,7 +65,6 @@ angular.module('archiveApp')
   playlist.add = function(track) {
     if (playlist.indexOf(track) != -1) return;
     playlist.push(track);
-    console.log(playlist);
   };
 
   playlist.remove = function(track) {
