@@ -7,10 +7,11 @@
   display: inline-block;
   color: white;
   width: 5em;
-  margin-bottom: 0
+  margin-bottom: 0;
+  margin: .5em 0;
 }
 
-#player {
+#playlist {
   .inner {
     position: fixed;
   }
@@ -21,7 +22,7 @@
   li {
     list-style: none;
     margin: 0;
-    padding-left: .5em;
+    padding: .5em;
     &.current {
       background: #eee;
     }

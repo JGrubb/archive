@@ -65,6 +65,7 @@ angular.module('archiveApp')
   playlist.add = function(track) {
     if (playlist.indexOf(track) != -1) return;
     playlist.push(track);
+    console.log(playlist);
   };
 
   playlist.remove = function(track) {

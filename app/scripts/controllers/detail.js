@@ -4,7 +4,7 @@ angular.module('archiveApp')
   .controller('DetailController', ['$scope', 'Archive', '$stateParams',
     function ($scope, Archive, $stateParams) {
       Archive.getShow($stateParams.id).then(function(data) {
-        //console.log(data);
+        console.log(data);
         $scope.data = data;
         $scope.metadata = data.metadata;
         $scope.item = data.item;
@@ -17,6 +17,8 @@ angular.module('archiveApp')
           data.files[file].path = file;
           data.files[file].server = data.server;
           data.files[file].dir = data.dir;
+          data.files[file].band = data.metadata.creator[0];
+          data.files[file].date = data.metadata.date[0];
         }
 
         var notTracks = _.filter(data.files, function(item) {
