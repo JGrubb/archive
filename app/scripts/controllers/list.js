@@ -18,6 +18,7 @@ angular.module('archiveApp')
     $scope.years.push('All');
     //$scope.yearOf = years.slice(0)[0];
     $scope.limit = 20;
+
   });
 
   $scope.loadMore = function() {
@@ -28,6 +29,7 @@ angular.module('archiveApp')
   $scope.yearOf = $stateParams.year;
 
   $scope.setYear = function(year) {
+    $scope.limit = 20;
     if (year === 'All') {
       $scope.yearOf = undefined;
     } else {

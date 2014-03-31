@@ -1,8 +1,10 @@
 <div class="row">
 
-  <ul class="breadcrumbs">
-    <li><a ui-sref="home">Home</a></li>
-  </ul>
+  <div class="large-12 column">
+    <ul class="breadcrumbs">
+      <li><a ui-sref="home">Home</a></li>
+    </ul>
+  </div>
   <div class="large-12 columns button-bar">
     <ul class="button-group">
       <li ng-repeat="year in years">
@@ -19,20 +21,22 @@
       </select>
     </label>
   </div>
-  <table class="large-12 column" infinite-scroll="loadMore()">
-    <tr>
-      <th>Date</th>
-      <th>Show</th>
-      <th>Rating</th>
-      <th>Downloads</th>
-      <th>View Detail</th>
-    </tr>
-    <tr ng-repeat="show in shows | orderBy:order | filter:{ year:yearOf } | limitTo:limit">
-      <td>{{ show.date | date : shortDate }}</td>
-      <td ui-sref="detail({ id: show.identifier })">{{ show.title }}</td>
-      <td>{{ show.avg_rating }}</td>
-      <td>{{ show.downloads }}</td>
-      <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Detail</a></td>
-    </tr>
-  </table>
+  <div class="column large-12">
+    <table infinite-scroll="loadMore()">
+      <tr>
+        <th>Date</th>
+        <th>Show</th>
+        <th>Rating</th>
+        <th>Downloads</th>
+        <th>View Detail</th>
+      </tr>
+      <tr ng-repeat="show in shows | orderBy:order | filter:{ year:yearOf } | limitTo:limit">
+        <td>{{ show.date | date : shortDate }}</td>
+        <td ui-sref="detail({ id: show.identifier })">{{ show.title }}</td>
+        <td>{{ show.avg_rating }}</td>
+        <td>{{ show.downloads }}</td>
+        <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Detail</a></td>
+      </tr>
+    </table>
+  </div>
 </div>

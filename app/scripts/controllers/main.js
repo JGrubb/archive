@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('MainController', function ($scope, Archive, $timeout) {
+  .controller('MainController', function ($scope, Archive, Player) {
 
     Archive.getIndex().then(function(data) {
       $scope.bands = data;

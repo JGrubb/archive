@@ -25,18 +25,31 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="container">
-      <div class="row">
-        <div class="header">
-          <h2 class="text-muted">archive ui</h2>
+      <div id="header">
+        <div class="row">
+          <h2 class="text-muted column large-12">archive ui</h2>
         </div>
       </div>
     </div>
 
     <!-- Add your site or application content here -->
     <div class="container" ng-controller="MainController">
-      <div class="row">
-        <div class="column large-3" ui-view="player"></div>
-        <div class="column large-9" ui-view></div>
+      <div id="main" class="row">
+        <div ng-cloak id="player" class="ng-cloak column large-4">
+          <nav>
+            <button class="tiny control prev" ng-click="player.previous()">Prev</button>
+            <button class="tiny control play" ng-click="player.play()" ng-hide="player.playing">Play</button>
+            <button class="tiny control pause" ng-click="player.pause()" ng-show="player.playing">Pause</button>
+            <button class="tiny control next" ng-click="player.next()">Next</button>
+          </nav>
+          <ul id="playlist">
+            <li ng-repeat="track in playlist"
+                ng-class="{current: player.current == $index}"
+                ng-click="player.play($index)">
+            </li>
+          </ul>
+        </div>
+        <div id="body" class="column large-8" ui-view></div>
       </div>
     </div>
 
@@ -78,6 +91,8 @@
         <script src="scripts/services/archive.js"></script>
         <script src="scripts/controllers/list.js"></script>
         <script src="scripts/controllers/detail.js"></script>
+        <script src="scripts/directives/player.js"></script>
+        <script src="scripts/services/player.js"></script>
         <!-- endbuild -->
 </body>
 </html>

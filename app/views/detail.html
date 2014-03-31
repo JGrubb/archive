@@ -4,17 +4,28 @@
     <li><a ui-sref="list({ collection: metadata.collection[0] })">{{ metadata.collection[0] }}</a></li>
   </ul>
   <div class="column large-12">
-    <h3>{{ metadata.title[0] }}</h3>
+    <h4>{{ metadata.title[0] }}</h4>
   </div>
-  <div class="column large-6">
-    <h4>Downloads</h4>
-    <a href="{{ filePath }}" target="_self" class="small button" download="foo.zip">VBR Download</a>
-  </div>
-  <div class="column large-6">
-    <h3>Files</h3>
-    <ul>
-      <li ng-repeat="file in files">{{ file }}</li>
-    </ul>
+  <div class="column large-12">
+    <dl class="tabs" data-tab>
+      <dd class="active"><a ng-href="#tracks">Tracks</a></dd>
+      <dd><a ng-href="#files">Files</a></dd>
+    </dl>
+    <div class="tabs-content">
+      <div class="content active" id="tracks">
+        <table>
+          <tr ng-repeat="file in notTracks">
+            <td>{{ file.format }}</td>
+            <td><a ng-href="http://{{ file.server + file.dir + file.path }}">Download</a></td>
+          </tr>
+        </table>
+      </div>
+      <div class="content" id="files">
+        <ul>
+          <li ng-repeat="track in tracks">{{ track[0].title }}</li>
+        </ul>
+      </div>
+    </div>
   </div>
   <div class="column large-12" ng-if="reviews">
     <h4>Reviews - <small>Average rating - {{ reviews.info.avg_rating }}</small></h4>
