@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('DetailController', ['$scope', 'Archive', '$stateParams',
-    function ($scope, Archive, $stateParams) {
+  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Player',
+    function ($scope, Archive, $stateParams, Player) {
       Archive.getShow($stateParams.id).then(function(data) {
         console.log(data);
         $scope.data = data;
@@ -10,6 +10,8 @@ angular.module('archiveApp')
         $scope.item = data.item;
         $scope.reviews = data.reviews;
         $scope.misc = data.misc;
+
+        $scope.metakeys = Object.keys($scope.metadata);
 
         for (var file in data.files) {
           data.files[file].path = file;
@@ -35,8 +37,15 @@ angular.module('archiveApp')
         //  return item.track;
         //});
 
-        console.log(tracks);
+        //console.log(tracks);
         $scope.notTracks = notTracks;
         $scope.tracks = tracks;
       });
+
+      $scope.addShow = function(tracks) {
+        for( var i = 0, len = tracks.length; i < len; i++ ) {
+          Player.playlist.add(tracks[i]);
+        }
+      }
+
   } ]);

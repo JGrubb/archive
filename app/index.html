@@ -59,7 +59,7 @@
               {{ player.current }}
                 <span ng-click="player.playlist.remove(track)"><i class="fa fa-minus-square"></i></span>
                 <span ng-click="player.play($index)"><i class="fa fa-play-circle"></i></span>
-              {{ track.title }}<br>
+              {{ track.title || track.path }}<br>
               <small><a ui-sref="list({collection: track.collection })">{{ track.band }}</a> - <a ui-sref="detail({ id: track.orig })">{{ track.date }}</a></small>
               </li>
             </div>

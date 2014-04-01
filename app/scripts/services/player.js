@@ -6,7 +6,7 @@ angular.module('archiveApp')
     paused = false,
     ls = localStorageService,
     playlist = ls.get('playlist') || [],
-    current = ls.get('playlist.current') || 0;
+    current;
 
   player = {
     playlist: playlist,
@@ -17,8 +17,7 @@ angular.module('archiveApp')
 
     play: function(track) {
       var pl = playlist;
-      var cc = current;
-      console.log(pl, cc);
+      var cc = current || ls.get('playlist.current');
       if (!pl.length) return;
 
       if (angular.isDefined(track)) {
@@ -42,14 +41,14 @@ angular.module('archiveApp')
 
     reset: function() {
       player.pause();
-      player.current = 0;
+      current = 0;
       ls.set('playlist.current', player.current);
     },
 
     next: function() {
       if (!playlist.length) return;
       paused = false;
-      if (playlist[current].length > (current + 1)) {
+      if (playlist.length > (current + 1)) {
         current++;
       } else {
         current = 0;
@@ -77,7 +76,6 @@ angular.module('archiveApp')
     if (playlist.indexOf(track) != -1) return;
     playlist.push(track);
     ls.set('playlist', playlist);
-    console.log(playlist);
   };
 
   playlist.remove = function(track) {
