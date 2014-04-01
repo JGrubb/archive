@@ -9,7 +9,7 @@
   <div class="column large-6">
     <ol>
       <li ng-repeat="track in tracks">
-      <a class="tiny" ng-click="player.playlist.add(track)">{{ track.title }}</a>
+      <a class="tiny" ng-click="player.playlist.add(track)">{{ track.title || track.path }}</a>
       </li>
     </ol>
   </div>
