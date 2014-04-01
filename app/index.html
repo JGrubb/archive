@@ -27,23 +27,25 @@
     <![endif]-->
     <div ng-controller="MainController">
       <div class="container">
-        <nav id="header" class="top-bar" data-topbar data-options="is_hover:false">
-          <ul class="title-area">
-            <li class="name">
+        <div class="contain-to-grid">
+          <nav id="header" class="top-bar">
+            <ul class="title-area">
+              <li class="name">
               <h1><a ui-sref="home">archive ui</a></h1>
-            </li>
-          </ul>
-          <section class="top-bar-section ng-cloak" ng-cloak>
-            <ul class="right">
-              <li>
-                <button class="tiny control prev" ng-cbuttonck="player.previous()"><i class="fa fa-fast-backward fa-2"></i></button>
-                <button class="tiny control play" ng-cbuttonck="player.play()" ng-hide="player.playing"><i class="fa fa-play fa-2"></i></button>
-                <button class="tiny control pause" ng-cbuttonck="player.pause()" ng-show="player.playing"><i class="fa fa-pause fa-2"></i></button>
-                <button class="tiny control next" ng-cbuttonck="player.next()"><i class="fa fa-fast-forward fa-2"></i></button>
               </li>
             </ul>
-          </section>
-        </nav>
+            <section class="top-bar-section ng-cloak" ng-cloak>
+              <ul class="right">
+                <li>
+                <button class="tiny control prev" ng-click="player.previous()"><i class="fa fa-fast-backward fa-2"></i></button>
+                <button class="tiny control play" ng-click="player.play()" ng-hide="player.playing"><i class="fa fa-play fa-2"></i></button>
+                <button class="tiny control pause" ng-click="player.pause()" ng-show="player.playing"><i class="fa fa-pause fa-2"></i></button>
+                <button class="tiny control next" ng-click="player.next()"><i class="fa fa-fast-forward fa-2"></i></button>
+                </li>
+              </ul>
+            </section>
+          </nav>
+        </div>
       </div>
 
       <!-- Add your site or application content here -->
@@ -53,12 +55,12 @@
             <h5>Playlist</h5>
             <div id="playlist">
               <li ng-repeat="track in player.playlist"
-              ng-class="{current: player.current == $index}"
-              ng-click="player.play($index)">
+              ng-class="{current: player.current == $index}">
+              {{ player.current }}
                 <span ng-click="player.playlist.remove(track)"><i class="fa fa-minus-square"></i></span>
                 <span ng-click="player.play($index)"><i class="fa fa-play-circle"></i></span>
               {{ track.title }}<br>
-              <small>{{ track.band }} - {{ track.date }}</small>
+              <small><a ui-sref="list({collection: track.collection })">{{ track.band }}</a> - <a ui-sref="detail({ id: track.orig })">{{ track.date }}</a></small>
               </li>
             </div>
           </div>

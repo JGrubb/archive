@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('archiveApp')
-  .factory('Player', function (audio, $rootScope) {
+  .factory('Player', function (audio, $rootScope, localStorageService) {
     var player,
-    playlist = [],
     paused = false,
-    current = 0;
+    ls = localStorageService,
+    playlist = ls.get('playlist') || [],
+    current = ls.get('playlist.current') || 0;
 
   player = {
     playlist: playlist,
@@ -15,12 +16,17 @@ angular.module('archiveApp')
     playing: false,
 
     play: function(track) {
-      if (!playlist.length) return;
+      var pl = playlist;
+      var cc = current;
+      console.log(pl, cc);
+      if (!pl.length) return;
 
-      if (angular.isDefined(track)) player.current = track;
-      console.log('helo');
+      if (angular.isDefined(track)) {
+        current = track;
+        ls.set('playlist.current', track);
+      }
 
-      if (!paused) audio.src = 'http://' + playlist[player.current].server + playlist[player.current].dir + playlist[player.current].path;
+      if (!paused) audio.src = 'http://' + pl[cc].server + pl[cc].dir + pl[cc].path;
       audio.play();
       player.playing = true;
       paused = false;
@@ -36,7 +42,8 @@ angular.module('archiveApp')
 
     reset: function() {
       player.pause();
-      current = 0;
+      player.current = 0;
+      ls.set('playlist.current', player.current);
     },
 
     next: function() {
@@ -47,6 +54,8 @@ angular.module('archiveApp')
       } else {
         current = 0;
       }
+      console.log('next', current);
+      ls.set('playlist.current', current);
       if (player.playing) player.play();
     },
 
@@ -56,8 +65,10 @@ angular.module('archiveApp')
       if (current > 0) {
         current--;
       } else {
-        current.track = playlist.length - 1;
+        current = playlist.length - 1;
       }
+      console.log('prev', current);
+      ls.set('playlist.current', current);
       if (player.playing) player.play();
     }
   };
@@ -65,6 +76,7 @@ angular.module('archiveApp')
   playlist.add = function(track) {
     if (playlist.indexOf(track) != -1) return;
     playlist.push(track);
+    ls.set('playlist', playlist);
     console.log(playlist);
   };
 
@@ -72,6 +84,7 @@ angular.module('archiveApp')
     var index = playlist.indexOf(track);
     if (index == current) player.reset();
     playlist.splice(index, 1);
+    ls.set('playlist', playlist);
   };
 
   audio.addEventListener('ended', function() {
