@@ -1,13 +1,11 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('MainController', function ($scope, Archive, Player) {
+  .controller('MainController', function ($scope, Archive) {
 
     Archive.getIndex().then(function(data) {
       $scope.bands = data;
     });
-
-    $scope.player = Player;
 
     $scope.limit = 60;
 

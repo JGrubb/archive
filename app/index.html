@@ -35,14 +35,7 @@
               </li>
             </ul>
             <section class="top-bar-section ng-cloak" ng-cloak>
-              <ul class="right">
-                <li>
-                <button class="tiny control prev" ng-click="player.previous()"><i class="fa fa-fast-backward fa-2"></i></button>
-                <button class="tiny control play" ng-click="player.play()" ng-hide="player.playing"><i class="fa fa-play fa-2"></i></button>
-                <button class="tiny control pause" ng-click="player.pause()" ng-show="player.playing"><i class="fa fa-pause fa-2"></i></button>
-                <button class="tiny control next" ng-click="player.next()"><i class="fa fa-fast-forward fa-2"></i></button>
-                </li>
-              </ul>
+              <div aui-player class="right"></div>
             </section>
           </nav>
         </div>
@@ -53,16 +46,6 @@
         <div id="main" class="row">
           <div ng-cloak class="ng-cloak column large-4">
             <h5>Playlist</h5>
-            <div id="playlist">
-              <li ng-repeat="track in player.playlist"
-              ng-class="{current: player.current == $index}">
-              {{ player.current }}
-                <span ng-click="player.playlist.remove(track)"><i class="fa fa-minus-square"></i></span>
-                <span ng-click="player.play($index)"><i class="fa fa-play-circle"></i></span>
-              {{ track.title || track.path }}<br>
-              <small><a ui-sref="list({collection: track.collection })">{{ track.band }}</a> - <a ui-sref="detail({ id: track.orig })">{{ track.date }}</a></small>
-              </li>
-            </div>
           </div>
           <div id="body" class="column large-8" ui-view></div>
         </div>
@@ -108,7 +91,8 @@
         <script src="scripts/controllers/list.js"></script>
         <script src="scripts/controllers/detail.js"></script>
         <script src="scripts/directives/player.js"></script>
-        <script src="scripts/services/player.js"></script>
+        <script src="scripts/controllers/player.js"></script>
+        <script src="scripts/services/playlist.js"></script>
         <!-- endbuild -->
 </body>
 </html>

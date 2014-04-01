@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Player',
-    function ($scope, Archive, $stateParams, Player) {
+  .controller('DetailController', ['$scope', 'Archive', '$stateParams'
+    function ($scope, Archive, $stateParams) {
       Archive.getShow($stateParams.id).then(function(data) {
         console.log(data);
         $scope.data = data;
@@ -42,10 +42,5 @@ angular.module('archiveApp')
         $scope.tracks = tracks;
       });
 
-      $scope.addShow = function(tracks) {
-        for( var i = 0, len = tracks.length; i < len; i++ ) {
-          Player.playlist.add(tracks[i]);
-        }
-      }
 
   } ]);

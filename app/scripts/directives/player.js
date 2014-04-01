@@ -1,12 +1,18 @@
 'use strict';
 
 angular.module('archiveApp')
-  .directive('player', function () {
+  .directive('auiPlayer', function () {
     return {
-      template: '<div></div>',
+      templateUrl: 'views/player.html',
       restrict: 'EA',
+      scope: true,
+      controller: ['Playlist', '$scope', function(Playlist, $scope) {
+        $scope.test = function() {
+          console.log('testing');
+        }
+      }],
+      replace: false,
       link: function postLink(scope, element, attrs) {
-        element.text('this is the player directive');
       }
     };
   });
