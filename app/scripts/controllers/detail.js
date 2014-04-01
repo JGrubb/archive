@@ -11,14 +11,14 @@ angular.module('archiveApp')
         $scope.reviews = data.reviews;
         $scope.misc = data.misc;
 
-        $scope.hasMp3 = (data.metadata.mas_mp3 === '1');
-
         for (var file in data.files) {
           data.files[file].path = file;
           data.files[file].server = data.server;
           data.files[file].dir = data.dir;
           data.files[file].band = data.metadata.creator[0];
           data.files[file].date = data.metadata.date[0];
+          data.files[file].orig = $stateParams.id;
+          data.files[file].collection = data.metadata.collection[0];
         }
 
         var notTracks = _.filter(data.files, function(item) {
@@ -35,7 +35,7 @@ angular.module('archiveApp')
         //  return item.track;
         //});
 
-        //console.log(tracks);
+        console.log(tracks);
         $scope.notTracks = notTracks;
         $scope.tracks = tracks;
       });
