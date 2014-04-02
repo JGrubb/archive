@@ -13,14 +13,14 @@ angular.module('archiveApp')
       console.log(Playlist.playlist);
       $scope.clearPlaylist = Playlist.clearPlaylist;
 
-      $scope.limit = 5;
+      $scope.limit = 40;
 
       $scope.clearCache = function() {
         ls.clearAll();
       };
 
       $scope.loadMore = function() {
-        $scope.limit += 10;
+        $scope.limit += 20;
       }
       console.log($scope);
 
