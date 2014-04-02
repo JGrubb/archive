@@ -6,10 +6,7 @@ angular.module('archiveApp')
     
     var ls = localStorageService;
     var playlist = ls.get('playlist') || [],
-    current = { album: 0, track: 0 };
 
-    var getPrev,
-        getNext,
         removeTrack,
         addTrack,
         addShow;
@@ -51,17 +48,8 @@ angular.module('archiveApp')
       ls.set('playlist', playlist);
     }
 
-    var next = function() {
-      var track = playlist[current.album].track;
-      current.album.track++;
-      console.log(track);
-      return track;
-    }
-
     // Public API here
     return {
-      getPrev: function() { return prev(); },
-      getNext: function() { return next(); },
       removeTrack: function(track) { return removeTrack(track); },
       addTrack: function(track) { return addTrack(track); },
       addShow: function(show) { return addShow(show); },

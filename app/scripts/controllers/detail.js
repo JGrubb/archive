@@ -21,6 +21,7 @@ angular.module('archiveApp')
           data.files[file].date = data.metadata.date[0];
           data.files[file].orig = $stateParams.id;
           data.files[file].collection = data.metadata.collection[0];
+          data.files[file].url = 'http://' + data.server + data.dir + file;
         }
 
         var notTracks = _.filter(data.files, function(item) {
