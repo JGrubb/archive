@@ -2,7 +2,7 @@
 
 angular.module('archiveApp')
   .factory('Playlist', ['localStorageService',
-    function (localStorageService) {
+    function (localStorageService, $scope) {
     
     var ls = localStorageService;
     var playlist = ls.get('playlist') || [],
