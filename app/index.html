@@ -49,10 +49,10 @@
             <a ng-click="clearPlaylist()">Clear playlist</a>
             <ul id="playlist">
               <li ng-repeat="album in playlist">
-              <i class="fa fa-minus-square-o"></i> {{ album.collection }} - {{ album.date }}
-              <ul>
-                <li ng-repeat="track in album.tracks"><a ng-click="play(track)">{{ track.title || track.path }}</a></li>
-              </ul>
+                <i class="fa fa-minus-square-o"></i> {{ album.collection }} - {{ album.date }}
+                <ol>
+                  <li ng-repeat="track in album.tracks"><a ng-click="play(track)">{{ track.title || track.path }}</a></li>
+                </ol>
               </li>
             </ul>
           </div>

@@ -25,7 +25,13 @@ angular.module('archiveApp')
         playlist.slice(-1)[0].tracks.push(track);
       } else {
         // the queue is empty or this is from a different show
-        playlist.push({collection: track.collection, date: track.date, detail: track.orig, tracks: [track] });
+        playlist.push({
+          album: track.album,
+          detail: track.orig,
+          tracks: [track],
+          collection: track.collection,
+          date: track.date
+        });
       }
       ls.set('playlist', playlist);
     };
@@ -34,14 +40,22 @@ angular.module('archiveApp')
       if (playlist.length && playlist.slice(-1)[0].album === tracks[0].album) {
         playlist.slice(-1)[0].tracks = tracks;
       } else {
-        playlist.push({collection: tracks[0].collection, date: tracks[0].date, detail: tracks[0].orig, tracks: tracks });
+        playlist.push({
+          album: tracks[0].album,
+          detail: tracks[0].orig,
+          tracks: tracks,
+          collection: tracks[0].collection,
+          date: tracks[0].date
+        });
       }
       ls.set('playlist', playlist);
     }
 
     var next = function() {
-      
-      return playlist[current.album].tracks[current.tracks];
+      var track = playlist[current.album].track;
+      current.album.track++;
+      console.log(track);
+      return track;
     }
 
     // Public API here

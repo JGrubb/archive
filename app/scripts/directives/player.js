@@ -18,10 +18,11 @@ angular.module('archiveApp')
 
 
           $scope.play = function(track) {
-            console.log('play');
+            //console.log(paused);
             if (!playlist.length) return;
-            if (!paused) {
+            if (!paused && !track) {
               var track = Playlist.getNext();
+              console.log(track);
               audio.src = 'http://' + track.server + track.dir + track.path;
             }
             $scope.playing = true;
@@ -29,18 +30,22 @@ angular.module('archiveApp')
           };
 
           $scope.pause = function() {
-            console.log('pause');
+            //console.log('pause');
             audio.pause();
             $scope.playing = false;
             paused = true;
           };
 
           $scope.prev = function() {
-            console.log('previous');
+            //console.log('previous');
+            var track = Playlist.getNext();
+            $scope.play(track);
           };
 
           $scope.next = function() {
-            console.log('next');
+            //console.log('next');
+            var track = Playlist.getPrev();
+            $scope.play(track);
           };
         }
       ],
