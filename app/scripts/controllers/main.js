@@ -1,21 +1,26 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('MainController', function ($scope, Archive, Playlist) {
+.controller('MainController', [ '$scope', 'Archive', 'Playlist', 'localStorageService', 
+    function ($scope, Archive, Playlist, localStorageService) {
+      var ls = localStorageService;
+      Archive.getIndex().then(function(data) {
+        $scope.bands = data;
+      });
 
-    Archive.getIndex().then(function(data) {
-      $scope.bands = data;
-    });
+      $scope.playlist = Playlist.playlist;
+      console.log(Playlist.playlist);
+      $scope.clearPlaylist = Playlist.clearPlaylist;
 
-    $scope.playlist = Playlist.playlist;
-    console.log(Playlist.playlist);
-    $scope.clearPlaylist = Playlist.clearPlaylist;
+      $scope.limit = 60;
 
-    $scope.limit = 60;
+      $scope.clearCache = function() {
+        ls.clearAll();
+      };
 
-    $scope.loadMore = function() {
-      $scope.limit += 60;
-    }
-    console.log($scope);
+      $scope.loadMore = function() {
+        $scope.limit += 60;
+      }
+      console.log($scope);
 
-  });
+    } ]);
