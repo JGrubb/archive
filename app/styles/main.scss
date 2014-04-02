@@ -7,6 +7,16 @@
   height: auto;
 }
 
+#player-zone {
+  color: white;
+  padding: .25em 1em;
+  background: rgba(255,255,255,0.1);
+  .currently-playing {
+    padding: .6em .6em .4em 0;
+    margin-left: 0
+  }
+}
+
 .control {
   display: inline-block;
   color: white;

@@ -16,5 +16,6 @@ angular.module('archiveApp')
     $scope.loadMore = function() {
       $scope.limit += 60;
     }
+    console.log($scope);
 
   });
