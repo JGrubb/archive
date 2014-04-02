@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('DetailController', ['$scope', 'Archive', '$stateParams'
-    function ($scope, Archive, $stateParams) {
+  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Playlist',
+    function ($scope, Archive, $stateParams, Playlist) {
       Archive.getShow($stateParams.id).then(function(data) {
-        console.log(data);
+        //console.log(data);
         $scope.data = data;
         $scope.metadata = data.metadata;
         $scope.item = data.item;
@@ -27,20 +27,21 @@ angular.module('archiveApp')
           return !item.hasOwnProperty('length');
         });
         
-        //console.log(notTracks);
-
         var tracks = _.filter(data.files, function(item) {
           return item.format === 'VBR MP3';
         });
-
-        //tracks = _.groupBy(tracks, function(item) {
-        //  return item.track;
-        //});
-
         //console.log(tracks);
+
         $scope.notTracks = notTracks;
         $scope.tracks = tracks;
       });
 
+      $scope.addTrack = function(track) {
+        Playlist.addTrack(track);
+        //console.log(Playlist);
+      }
 
+      $scope.addShow = function(show) {
+        Playlist.addShow(show);
+      }
   } ]);

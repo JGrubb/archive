@@ -1,1 +1,12 @@
-<button class="tiny" ng-click="test">Hello</button>
+<button class="tiny control" ng-click="prev()">
+  <i class="fa fa-fast-backward"></i>
+</button>
+<button class="tiny control" ng-click="play()" ng-show="!playing">
+  <i class="fa fa-play"></i>
+</button>
+<button class="tiny control" ng-click="pause()" ng-show="playing">
+  <i class="fa fa-pause"></i>
+</button>
+<button class="tiny control" ng-click="next()">
+  <i class="fa fa-fast-forward"></i>
+</button>

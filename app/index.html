@@ -46,6 +46,15 @@
         <div id="main" class="row">
           <div ng-cloak class="ng-cloak column large-4">
             <h5>Playlist</h5>
+            <a ng-click="clearPlaylist()">Clear playlist</a>
+            <ul id="playlist">
+              <li ng-repeat="album in playlist">
+              <i class="fa fa-minus-square-o"></i> {{ album.collection }} - {{ album.date }}
+              <ul>
+                <li ng-repeat="track in album.tracks"><a ng-click="play(track)">{{ track.title || track.path }}</a></li>
+              </ul>
+              </li>
+            </ul>
           </div>
           <div id="body" class="column large-8" ui-view></div>
         </div>
