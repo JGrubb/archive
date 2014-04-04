@@ -15,11 +15,12 @@ jsdom.env({
     for (var i = 0; i < len; i++) {
       band = {
         name: bands[i].firstChild.innerHTML,
-        collection: bands[i].firstChild.href.split('/').slice(-1)[0]
+        collection: bands[i].firstChild.href.split('/').slice(-1)[0],
+        count: parseInt($(bands[i]).find('a:last').text(), 10)
       }
       console.log(band);
       dump.push(band);
     }
-    fs.writeFile('index.json', JSON.stringify(dump));
+    fs.writeFile('app/index.json', JSON.stringify(dump));
   }
 });
