@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Playlist',
-    function ($scope, Archive, $stateParams, Playlist) {
+  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Playlist', '_',
+    function ($scope, Archive, $stateParams, Playlist, _) {
       Archive.getShow($stateParams.id).then(function(data) {
         //console.log(data);
         $scope.data = data;

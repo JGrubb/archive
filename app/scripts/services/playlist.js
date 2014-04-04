@@ -42,7 +42,7 @@ angular.module('archiveApp')
         playlist.push({
           album: tracks[0].album,
           detail: tracks[0].orig,
-          tracks: tracks,
+          tracks: tracks.slice(0),
           collection: tracks[0].collection,
           date: tracks[0].date
         });
