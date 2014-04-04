@@ -4,14 +4,13 @@ angular.module('archiveApp')
   .factory('messageBus', function messageBus($rootScope) {
     return {
 
-      prepForBroadcast: function() {
-        this.message = arguments;
-        this.broadcastItem();
-      };
+      prepForBroadcast: function(args) {
+        this.broadcastItem(args[0], args.slice(1));
+      },
 
-      broadcastItem: function() {
-        $rootScope.$broadcast('handleBroadcast');
-      };
+      broadcastItem: function(name, message) {
+        $rootScope.$broadcast(name, message);
+      }
 
     }
   });

@@ -23,15 +23,9 @@ angular.module('archiveApp')
         $scope.limit += 20;
       };
 
-      $scope.emit = function() {
-        console.dir(arguments);
-        messageBus.prepForBroadcast(arguments);
+      $scope.emit = function emit() {
+        var args = Array.prototype.slice.call(arguments);
+        messageBus.prepForBroadcast(args);
       };
-
-      $scope.$on('handleBroadcast', function() {
-        $scope.message = messageBus.message;
-      });
-
-      console.log($scope);
 
     } ]);

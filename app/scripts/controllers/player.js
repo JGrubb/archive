@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('PlayerController', ['Playlist', '$scope', 'audio', 'localStorageService', '$rootScope',
-        function(Playlist, $scope, audio, localStorageService, $rootScope) {
+  .controller('PlayerController', ['Playlist', '$scope', 'audio', 'localStorageService', '$rootScope', 'messageBus',
+        function(Playlist, $scope, audio, localStorageService, $rootScope, messageBus) {
 
           var playlist = Playlist.playlist;
           var ls = localStorageService;
@@ -64,6 +64,11 @@ angular.module('archiveApp')
             if ($scope.playing) $scope.play();
           };
           $scope.current = current;
+
+          $scope.$on('toPlayer', function() {
+            var args = arguments[1];
+            $scope[args[0]](args[1], args[2]);
+          }); 
 
           audio.addEventListener('ended', function() {
             $rootScope.$apply($scope.next);
