@@ -39,7 +39,6 @@ angular.module('archiveApp')
 
       $scope.addTrack = function(track) {
         Playlist.addTrack(track);
-        //console.log(Playlist);
       }
 
       $scope.addShow = function(show) {

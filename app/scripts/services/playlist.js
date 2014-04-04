@@ -2,7 +2,7 @@
 
 angular.module('archiveApp')
   .factory('Playlist', ['localStorageService',
-    function (localStorageService, $scope) {
+    function (localStorageService) {
     
     var ls = localStorageService;
     var playlist = ls.get('playlist') || [],
@@ -50,9 +50,22 @@ angular.module('archiveApp')
       ls.set('playlist', playlist);
     }
 
+    var removeTrack = function(track, album) {
+      playlist[album].tracks.splice(track, 1);
+      ls.set('playlist', playlist);
+      return playlist;
+    }
+
+    var removeAlbum = function(album) {
+      playlist.splice(album, 1);
+      ls.set('playlist', playlist);
+      return playlist;
+    }
+
     // Public API here
     return {
-      removeTrack: function(track) { return removeTrack(track); },
+      removeTrack: function(track, album) { return removeTrack(track, album); },
+      removeAlbum: function(album) { return removeAlbum(album); },
       addTrack: function(track) { return addTrack(track); },
       addShow: function(show) { return addShow(show); },
       clearPlaylist: function() { return clearPlaylist()},

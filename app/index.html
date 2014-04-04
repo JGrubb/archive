@@ -49,15 +49,14 @@
         <div id="main" class="row">
           <div ng-cloak class="ng-cloak column large-4 show-for-large-up">
             <h5>Playlist</h5>
-            <a ng-click="clearPlaylist()">Clear playlist</a>
             <ul id="playlist">
               <li ng-repeat="album in playlist">
-                <i ng-click="emit('toPlaylist', 'removeAlbum', $index)" class="fa fa-minus-square-o"></i>
+                <i ng-click="removeAlbum($index)" class="fa fa-minus-square-o"></i>
                   <a ui-sref="list({ collection: album.collection })"><i>{{ album.collection }}</i></a><br>
                   <a ui-sref="detail({ id: album.tracks[0].orig })"><small>{{ album.date }}</small></a>
                 <ol>
                   <li ng-repeat="track in album.tracks">
-                    <i ng-click="emit('toPlaylist', 'removeTrack', $index, $parent.$index)" class="fa fa-minus-square-o"></i>
+                    <i ng-click="removeTrack($index, $parent.$index)" class="fa fa-minus-square-o"></i>
                     <a ng-click="emit('toPlayer', 'play', $index, $parent.$index)">{{ track.title || track.path }}</a>
                   </li>
                 </ol>

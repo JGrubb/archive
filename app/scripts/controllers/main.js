@@ -11,7 +11,10 @@ angular.module('archiveApp')
 
       $scope.playlist = Playlist.playlist;
 
-      $scope.clearPlaylist = Playlist.clearPlaylist;
+      $scope.clearPlaylist = function() {
+        Playlist.clearPlaylist();
+        $scope.playlist = Playlist.playlist;
+      };
 
       $scope.limit = 40;
 
@@ -25,7 +28,17 @@ angular.module('archiveApp')
 
       $scope.emit = function emit() {
         var args = Array.prototype.slice.call(arguments);
-        messageBus.prepForBroadcast(args);
+        messageBus.broadcastItem(args[0], args.slice(1));
       };
+
+      $scope.removeTrack = function(track, album) {
+        Playlist.removeTrack(track, album);
+        $scope.playlist = Playlist.playlist;
+      }
+
+      $scope.removeAlbum = function(album) {
+        Playlist.removeAlbum(album);
+        $scope.playlist = Playlist.playlist;
+      }
 
     } ]);

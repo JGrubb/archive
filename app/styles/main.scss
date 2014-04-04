@@ -48,7 +48,7 @@
   li {
     list-style: none;
     margin: 0;
-    padding: .3em 0;
+    padding: .2em 0;
     &.current {
       background: #eee;
     }
@@ -60,5 +60,8 @@
     &:hover span {
       opacity: 1;
     }
+  }
+  i {
+    cursor: pointer;
   }
 }
