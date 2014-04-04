@@ -52,9 +52,14 @@
             <a ng-click="clearPlaylist()">Clear playlist</a>
             <ul id="playlist">
               <li ng-repeat="album in playlist">
-                <i class="fa fa-minus-square-o"></i> {{ album.collection }} - {{ album.date }}
+                <i ng-click="emit('removeAlbum', $index)" class="fa fa-minus-square-o"></i>
+                  <a ui-sref="list({ collection: album.collection })"><i>{{ album.collection }}</i></a><br>
+                  <a ui-sref="detail({ id: album.tracks[0].orig })"><small>{{ album.date }}</small></a>
                 <ol>
-                  <li ng-repeat="track in album.tracks"><a ng-click="play($index, $parent.$index)">{{ track.title || track.path }}</a></li>
+                  <li ng-repeat="track in album.tracks">
+                    <i ng-click="emit('removeTrack', $index, $parent.$index)" class="fa fa-minus-square-o"></i>
+                    <a ng-click="emit('play', $index, $parent.$index)">{{ track.title || track.path }}</a>
+                  </li>
                 </ol>
               </li>
             </ul>
@@ -106,6 +111,7 @@
         <script src="scripts/directives/player.js"></script>
         <script src="scripts/controllers/player.js"></script>
         <script src="scripts/services/playlist.js"></script>
+        <script src="scripts/services/messageBus.js"></script>
         <!-- endbuild -->
 </body>
 </html>

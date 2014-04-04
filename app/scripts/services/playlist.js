@@ -15,6 +15,7 @@ angular.module('archiveApp')
       playlist = [];
       ls.set('playlist', playlist);
       ls.set('playlist.current', {album: 0, track: 0});
+      return playlist;
     };
 
     var addTrack = function(track) {
