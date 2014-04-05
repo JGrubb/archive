@@ -24,17 +24,14 @@
   <div class="column large-12">
     <table infinite-scroll="loadMore()">
       <tr>
-        <th>Date</th>
         <th>Show</th>
-        <th>Rating</th>
-        <th>Downloads</th>
         <th>View Detail</th>
       </tr>
       <tr ng-repeat="show in shows | orderBy:order | filter:{ year:yearOf } | limitTo:limit">
-        <td>{{ show.date | date : shortDate }}</td>
-        <td ui-sref="detail({ id: show.identifier })">{{ show.title }}</td>
-        <td>{{ show.avg_rating }}</td>
-        <td>{{ show.downloads }}</td>
+        <td>
+          <a ui-sref="detail({ id: show.identifier })">{{ show.title }}</a><br >
+          <small><em>{{ show.date | date : mediumDate }} - {{ show.downloads }} downloads</em></small>
+        </td>
         <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Detail</a></td>
       </tr>
     </table>
