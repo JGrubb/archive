@@ -55,7 +55,7 @@
                   <a ui-sref="list({ collection: album.collection })"><i>{{ album.collection }}</i></a><br>
                   <a ui-sref="detail({ id: album.tracks[0].orig })"><small>{{ album.date }}</small></a>
                 <ol>
-                  <li ng-repeat="track in album.tracks">
+                  <li ng-repeat="track in album.tracks" ng-class="{current: current.track === $index}">
                     <i ng-click="removeTrack($index, $parent.$index)" class="fa fa-minus-square-o"></i>
                     <a ng-click="emit('toPlayer', 'play', $index, $parent.$index)">{{ track.title || track.path }}</a>
                   </li>
