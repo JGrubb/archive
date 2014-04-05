@@ -22,6 +22,7 @@ angular.module('archiveApp', [
       templateUrl: 'views/detail.html',
       controller: 'DetailController'
     });
+    $urlRouterProvider.when('', '/');
   });
 
 

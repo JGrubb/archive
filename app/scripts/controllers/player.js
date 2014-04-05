@@ -63,7 +63,6 @@ angular.module('archiveApp')
             }
             if ($scope.playing) $scope.play();
           };
-          $scope.current = current;
           $scope.$parent.current = current;
 
           $scope.$on('toPlayer', function() {
