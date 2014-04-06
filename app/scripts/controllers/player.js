@@ -33,15 +33,19 @@ angular.module('archiveApp')
             if (angular.isDefined(album)) current.album = album;
 
             if (!paused) audio.src = playlist[current.album].tracks[current.track].url;
+            
+            audio.addEventListener('canplay', function() {
+              audio.currentTime = ls.get('currentTime') || 0;
+            });
             audio.play();
             $scope.playing = true;
             paused = false;
             ls.set('playlist.current', current);
             $scope.currentlyPlaying = playlist[current.album].tracks[current.track].title;
-            console.dir(audio);
+            //console.dir(audio);
             interval = $interval(function() {
               if ($scope.playing) {
-                var currentTime = Math.ceil(audio.currentTime);
+                var currentTime = Math.floor(audio.currentTime);
                 var duration = Math.floor(audio.duration);
                 $scope.currentTime = timeFormatter(currentTime);
                 $scope.duration = timeFormatter(duration);
@@ -64,11 +68,15 @@ angular.module('archiveApp')
             if (!playlist.length) return;
             paused = false;
             ls.set('currentTime', 0);
-            if (current.track > 0) {
-              current.track--;
+            if (audio.currentTime > 3) {
+              audio.currentTime = 0;
             } else {
-              current.album = (current.album - 1 + playlist.length) % playlist.length;
-              current.track = playlist[current.album].tracks.length - 1;
+              if (current.track > 0) {
+                current.track--;
+              } else {
+                current.album = (current.album - 1 + playlist.length) % playlist.length;
+                current.track = playlist[current.album].tracks.length - 1;
+              }
             }
             if ($scope.playing) $scope.play();
           };

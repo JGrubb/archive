@@ -13,7 +13,7 @@
       <i class="fa fa-fast-forward"></i>
     </button>
   </div>
-  <p class="currently-playing">{{ currentlyPlaying }}<br>
-    <small>{{ currentTime }} / {{ duration }}</small>
+  <p class="currently-playing"><span ng-show="currentlyPlaying">{{ currentlyPlaying }}<br>
+    <small>{{ currentTime }} / {{ duration }}</small></span>
   </p>
 </ul>
