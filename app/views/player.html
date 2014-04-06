@@ -1,6 +1,5 @@
 <ul class="right" id="player-zone">
-  <li ng-show="currentlyPlaying" class="currently-playing">{{ currentlyPlaying }}</li>
-  <li id="player">
+  <div id="player">
     <button class="tiny control" ng-click="prev()">
       <i class="fa fa-fast-backward"></i>
     </button>
@@ -13,5 +12,6 @@
     <button class="tiny control" ng-click="next()">
       <i class="fa fa-fast-forward"></i>
     </button>
-  </li>
+  </div>
+  <p class="currently-playing">{{ currentlyPlaying }} <small>{{ currentTime }} / {{ duration }}</small></p>
 </ul>

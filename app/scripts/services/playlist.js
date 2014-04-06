@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('archiveApp')
-  .factory('Playlist', ['localStorageService',
-    function (localStorageService) {
+  .factory('Playlist', ['localStorageService', 'audio',
+    function (localStorageService, audio) {
     
     var ls = localStorageService;
     var playlist = ls.get('playlist') || [],
-
+        
         removeTrack,
         addTrack,
         addShow;
@@ -54,6 +54,17 @@ angular.module('archiveApp')
     }
 
     var removeTrack = function(track, album) {
+      var current = ls.get('playlist.current');
+      if (current.album === album) {
+        if (current.track === track) {
+          audio.pause();
+          current.track = 0;
+        }
+        if (current.track >= track) {
+          current.track--;
+        }
+        ls.set('playlist.current', current);
+      }
       playlist[album].tracks.splice(track, 1);
       ls.set('playlist', playlist);
       return playlist;

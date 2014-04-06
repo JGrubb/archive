@@ -9,6 +9,13 @@ angular.module('archiveApp')
         $scope.bands.sort( function() { return 0.5 - Math.random() } );
       });
 
+      var current = ls.get('playlist.current') || {
+        album: 0,
+        track: 0
+      };
+
+      $scope.current = current;
+
       $scope.playlist = Playlist.playlist;
 
       $scope.clearPlaylist = function() {
@@ -34,6 +41,9 @@ angular.module('archiveApp')
       $scope.removeTrack = function(track, album) {
         Playlist.removeTrack(track, album);
         $scope.playlist = Playlist.playlist;
+        if (current.album === album && current.track >= track) {
+          current.track--;
+        }
       }
 
       $scope.removeAlbum = function(album) {

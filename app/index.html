@@ -26,26 +26,17 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div ng-controller="MainController">
-      <div class="container">
+      <div id="main-wrap">
+        <div class="container">
         <div class="contain-to-grid">
           <nav id="header" class="top-bar">
-            <ul class="title-area">
-              <li class="name">
-                <h1><a ui-sref="home">archive ui</a></h1>
-              </li>
-            </ul>
-            <section class="top-bar-section">
-              <ul class="left">
-                <li><a ng-click="clearCache()">Clear storage</a></li>
-              </ul>
-            </section>
             <section aui-player class="top-bar-section ng-cloak" ng-cloak></section>
           </nav>
         </div>
       </div>
 
-      <!-- Add your site or application content here -->
-      <div class="container">
+        <!-- Add your site or application content here -->
+        <div class="container">
         <div id="main" class="row">
           <div ng-cloak class="ng-cloak column large-4 show-for-large-up">
             <h5>Playlist</h5>
@@ -66,7 +57,7 @@
           <div id="body" class="column large-8" ui-view></div>
         </div>
       </div>
-
+      </div>
     </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>

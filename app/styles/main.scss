@@ -1,3 +1,8 @@
+#main {
+  overflow: hidden;
+  width: 100%;
+}
+
 #search {
   margin-top: 35%;
 }
@@ -18,9 +23,8 @@
   li {
     margin: auto;
   }
-  .currently-playing {
-    padding: .6em .6em .4em 0;
-    margin-left: 0
+  p {
+    margin-bottom: 0;
   }
 }
 
