@@ -22,7 +22,7 @@
     <!-- endbuild -->
   </head>
   <body ng-app="archiveApp">
-    <!--[if lt IE 7]>
+    <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div ng-controller="MainController">
@@ -38,23 +38,28 @@
         <!-- Add your site or application content here -->
         <div class="container">
         <div id="main" class="row">
-          <div ng-cloak class="ng-cloak column large-4 show-for-large-up">
-            <h5>Playlist</h5>
-            <ul id="playlist">
-              <li ng-repeat="album in playlist">
-                <i ng-click="removeAlbum($index)" class="fa fa-minus-square-o"></i>
-                  <a ui-sref="list({ collection: album.collection })"><i>{{ album.collection }}</i></a><br>
-                  <a ui-sref="detail({ id: album.tracks[0].orig })"><small>{{ album.date }}</small></a>
-                <ol>
-                  <li ng-repeat="track in album.tracks" ng-class="{ current: current.track === $index && current.album === $parent.$index }">
-                    <i ng-click="removeTrack($index, $parent.$index)" class="fa fa-minus-square-o"></i>
+          <div ng-cloak class="ng-cloak column large-4 medium-4" id="playlist" ng-class="{show: playlist.visible}">
+            <i class="fa fa-list-ul fa-2x show-for-small-only mobile-toggle" ng-click="playlist.visible = !playlist.visible"></i>
+            <ul>
+              <li ng-repeat="album in playlist" class="album">
+                <i class="fa fa-minus-circle fa-lg" ng-click="album.showAlbum = !album.showAlbum" ng-show="album.showAlbum"></i>
+                <i class="fa fa-plus-circle fa-lg" ng-click="album.showAlbum = !album.showAlbum" ng-hide="album.showAlbum"></i>
+                <a ui-sref="list({ collection: album.collection })" class="collection">
+                  <i>{{ album.collection }}</i>
+                </a> -
+                <a ui-sref="detail({ id: album.tracks[0].orig })" class="date">
+                  <small>{{ album.date }}</small>
+                </a>
+                <ol ng-show="album.showAlbum">
+                  <li class="track" ng-repeat="track in album.tracks" ng-class="{ current: current.track === $index && current.album === $parent.$index }">
                     <a ng-click="emit('toPlayer', 'play', $index, $parent.$index)">{{ track.title || track.path }}</a>
+                    <i ng-show="current.track === $index && current.album === $parent.$index" class="fa fa-volume-up"></i>
                   </li>
                 </ol>
               </li>
             </ul>
           </div>
-          <div id="body" class="column large-8" ui-view></div>
+          <div id="body" class="column large-8 medium-8" ui-view></div>
         </div>
       </div>
       </div>
@@ -71,11 +76,6 @@
 
     </script>
 
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
@@ -89,6 +89,7 @@
     <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
     <script src="bower_components/ngInfiniteScroll/ng-infinite-scroll.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

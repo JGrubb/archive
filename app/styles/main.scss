@@ -1,10 +1,13 @@
+@import '../bower_components/foundation/scss/foundation';
+
 #main {
   overflow: hidden;
   width: 100%;
 }
 
-#search {
-  margin-top: 35%;
+.site-name {
+  text-align: center;
+  padding: 1em 0;
 }
 
 .ng-cloak {
@@ -38,23 +41,33 @@
 
 #playlist {
   padding-left: .5em;
+  @media #{$small-only} {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: white;
+    top: 90%;
+    left: 0;
+    transition: top .5s;
+    &.show {
+      top: 0;
+    }
+  }
   .inner {
     position: fixed;
   }
-  ul {
+  ul, ol {
     margin: 0;
-    padding: 0;
+    padding-left: .75em;
   }
-  ol li {
-    //list-style: decimal;
+  ol {
+    padding-top: .5em;
   }
   li {
     list-style: none;
     margin: 0;
-    padding: 0 .25em;
-    &.current {
-      background: #eee;
-    }
+    padding: .25em;
     span {
       opacity: .1;
       transition: .3s all;
@@ -63,9 +76,20 @@
     &:hover span {
       opacity: 1;
     }
+    .track i {
+      color: #aaa;
+    }
+    &.album {
+      padding: .5em 0 0;
+    }
   }
   i {
     cursor: pointer;
+  }
+  .mobile-toggle {
+    text-align: right;
+    display: inline;
+    padding: .5em;
   }
 }
 

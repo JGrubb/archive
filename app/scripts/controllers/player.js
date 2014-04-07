@@ -21,7 +21,8 @@ angular.module('archiveApp')
             var seconds = seconds % 60;
             minutes = (minutes < 10) ? "0" + minutes : minutes;
             seconds = (seconds < 10) ? "0" + seconds : seconds;
-            return (minutes === NaN) ? "00:00" : minutes + ":" + seconds;
+            var formatted = (minutes === NaN) ? "00:00" : minutes + ":" + seconds;
+            return formatted;
           }
 
 
@@ -32,11 +33,14 @@ angular.module('archiveApp')
             if (angular.isDefined(track)) current.track = track;
             if (angular.isDefined(album)) current.album = album;
 
-            if (!paused) audio.src = playlist[current.album].tracks[current.track].url;
+            if (!paused) {
+              audio.src = playlist[current.album].tracks[current.track].url;
+
+              audio.addEventListener('canplay', function() {
+                audio.currentTime = ls.get('currentTime') || 0;
+              });
+            }
             
-            audio.addEventListener('canplay', function() {
-              audio.currentTime = ls.get('currentTime') || 0;
-            });
             audio.play();
             $scope.playing = true;
             paused = false;

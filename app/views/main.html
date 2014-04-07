@@ -1,6 +1,6 @@
 <div class="row" infinite-scroll="loadMore()">
-  <div class="large-1erve
-  column" id="search">
+  <h1 class="site-name">the archive ui</h1>
+  <div class="large-12 column" id="search">
     <input ng-model="query" type="text" placeholder="Search here...">
   </div>
   <div ng-repeat="band in bands | filter:query | limitTo:limit" class="large-6 column">
