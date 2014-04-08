@@ -13,6 +13,11 @@
     </ul>
   </div>
   <div class="large-6 columns">
+    <label>Search
+      <input ng-model="query" type="text">
+    </label>
+  </div>
+  <div class="large-6 columns">
     <label>Order by
       <select ng-model="order">
         <option value="-date" selected="selected">Date</option>
@@ -22,15 +27,15 @@
     </label>
   </div>
   <div class="column large-12">
-    <table infinite-scroll="loadMore()">
+    <table infinite-scroll="loadMore()" id="showlist">
       <tr>
         <th>Show</th>
         <th>View Detail</th>
       </tr>
-      <tr ng-repeat="show in shows | orderBy:order | filter:{ year:yearOf } | limitTo:limit">
+      <tr ng-repeat="show in shows | orderBy:order | filter:query | filter:{ year:yearOf } | limitTo:limit">
         <td>
           <span ui-sref="detail({ id: show.identifier })">{{ show.title }}</span><br >
-          <small><em>{{ show.date | date : mediumDate }} - {{ show.downloads }} downloads</em></small>
+          <small><em>{{ show.date | date : mediumDate }} - {{ show.downloads }} downloads</em></small><i ng-show="currentlyPlaying === show.identifier" class="fa fa-volume-up"></i>
         </td>
         <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Detail</a></td>
       </tr>

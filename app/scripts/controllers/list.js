@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('archiveApp')
-.controller('ListController', ['$scope', 'Archive', '$stateParams', '_', 
-  function ($scope, Archive, $stateParams, _) {
+.controller('ListController', ['$scope', 'Archive', '$stateParams', '_', 'Playlist',
+  function ($scope, Archive, $stateParams, _, Playlist) {
 
   var fullSet;
 
@@ -17,7 +17,8 @@ angular.module('archiveApp')
     $scope.years.push('All');
     //$scope.yearOf = years.slice(0)[0];
     $scope.limit = 20;
-
+    $scope.currentlyPlaying = Playlist.playlist()[0].detail;
+    console.log($scope.currentlyPlaying);
   });
 
   $scope.loadMore = function() {
