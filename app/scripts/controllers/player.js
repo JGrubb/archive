@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('PlayerController', ['Playlist', '$scope', 'audio', 'localStorageService', '$rootScope', '$interval',
-        function(Playlist, $scope, audio, localStorageService, $rootScope, $interval) {
+  .controller('PlayerController', ['Playlist', '$scope', 'audio', 'localStorageService', '$rootScope', '$interval', 'Current',
+        function(Playlist, $scope, audio, localStorageService, $rootScope, $interval, Current) {
 
-          var playlist = Playlist.playlist;
+
           var ls = localStorageService;
           var paused = false;
-          var current = $scope.$parent.current;
+          var current = Current;
           var currentTime = parseInt(ls.get('currentTime'), 10);
 
           $scope.playing = false;
@@ -21,13 +21,13 @@ angular.module('archiveApp')
             var seconds = seconds % 60;
             minutes = (minutes < 10) ? "0" + minutes : minutes;
             seconds = (seconds < 10) ? "0" + seconds : seconds;
-            var formatted = (minutes === NaN) ? "00:00" : minutes + ":" + seconds;
+            var formatted = (!minutes) ? "00:00" : minutes + ":" + seconds;
             return formatted;
           }
 
 
           $scope.play = function(track, album) {
-            //console.log(paused);
+            var playlist = Playlist.playlist();
             if (!playlist.length) return;
             //console.log(currentTime);
             if (angular.isDefined(track)) current.track = track;
@@ -40,7 +40,7 @@ angular.module('archiveApp')
                 audio.currentTime = ls.get('currentTime') || 0;
               });
             }
-            
+
             audio.play();
             $scope.playing = true;
             paused = false;
@@ -69,6 +69,7 @@ angular.module('archiveApp')
           };
 
           $scope.prev = function() {
+            var playlist = Playlist.playlist();
             if (!playlist.length) return;
             paused = false;
             ls.set('currentTime', 0);
@@ -86,6 +87,7 @@ angular.module('archiveApp')
           };
 
           $scope.next = function() {
+            var playlist = Playlist.playlist();
             if (!playlist.length) return;
             paused = false;
             ls.set('currentTime', 0);
@@ -99,9 +101,8 @@ angular.module('archiveApp')
           };
           $scope.$parent.current = current;
 
-          $scope.$on('toPlayer', function() {
-            var args = arguments[1];
-            $scope[args[0]](args[1], args[2]);
+          $rootScope.$on('player:play', function(event, args) {
+            $scope.play(args.track, args.album);
           });
 
           audio.addEventListener('ended', function() {

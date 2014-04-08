@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('archiveApp')
-  .factory('Playlist', ['localStorageService', 'audio',
-    function (localStorageService, audio) {
-    
+  .factory('Playlist', ['localStorageService', 'audio', '$rootScope',
+    function (localStorageService, audio, $rootScope) {
+
     var ls = localStorageService;
     var playlist = ls.get('playlist') || [],
-        
+
         removeTrack,
         addTrack,
         addShow;
@@ -51,6 +51,7 @@ angular.module('archiveApp')
         });
       }
       ls.set('playlist', playlist);
+      return playlist;
     }
 
     var removeTrack = function(track, album) {
@@ -83,6 +84,6 @@ angular.module('archiveApp')
       addTrack: function(track) { return addTrack(track); },
       addShow: function(show) { return addShow(show); },
       clearPlaylist: function() { return clearPlaylist()},
-      playlist: playlist
+      playlist: function() { return playlist; }
     };
   }]);

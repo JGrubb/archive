@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Playlist', '_',
-    function ($scope, Archive, $stateParams, Playlist, _) {
+  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Playlist', '_', 'emit',
+    function ($scope, Archive, $stateParams, Playlist, _, emit) {
       Archive.getShow($stateParams.id).then(function(data) {
         //console.log(data);
         $scope.data = data;
@@ -31,7 +31,7 @@ angular.module('archiveApp')
         var tracks = _.filter(data.files, function(item) {
           return item.format === 'VBR MP3';
         });
-        console.log(tracks);
+        //console.log(tracks);
 
         $scope.notTracks = notTracks;
         $scope.tracks = tracks;
@@ -43,5 +43,11 @@ angular.module('archiveApp')
 
       $scope.addShow = function(show) {
         Playlist.addShow(show);
+      }
+
+      $scope.play = function (index) {
+        emit('playlist:clear');
+        var playlist = Playlist.addShow($scope.tracks);
+        emit('player:play', {album: 0, track: index});
       }
   } ]);

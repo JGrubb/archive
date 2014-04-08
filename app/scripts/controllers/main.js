@@ -1,27 +1,22 @@
 'use strict';
 
 angular.module('archiveApp')
-.controller('MainController', [ '$scope', 'Archive', 'Playlist', 'localStorageService', 'messageBus',
-    function ($scope, Archive, Playlist, localStorageService, messageBus) {
-      var ls = localStorageService;
+.controller('MainController', [ '$scope', 'Archive', 'Playlist', '$rootScope', 'emit', 'Current',
+    function ($scope, Archive, Playlist, $rootScope, emit, Current) {
       Archive.getIndex().then(function(data) {
         $scope.bands = data;
         $scope.bands.sort( function() { return 0.5 - Math.random() } );
       });
 
-      var current = ls.get('playlist.current') || {
-        album: 0,
-        track: 0
-      };
+      var current = Current;
 
       $scope.current = current;
+      $scope.playlist = Playlist.playlist();
 
-      $scope.playlist = Playlist.playlist;
-
-      $scope.clearPlaylist = function() {
-        Playlist.clearPlaylist();
-        $scope.playlist = Playlist.playlist;
-      };
+      $rootScope.$on('playlist:clear', function() {
+        console.log('testing');
+        $scope.playlist = Playlist.clearPlaylist();
+      });
 
       $scope.limit = 40;
 
@@ -33,22 +28,8 @@ angular.module('archiveApp')
         $scope.limit += 20;
       };
 
-      $scope.emit = function emit() {
-        var args = Array.prototype.slice.call(arguments);
-        messageBus.broadcastItem(args[0], args.slice(1));
+      $scope.play = function(track, album) {
+        emit('player:play', {track: track, album: album});
       };
-
-      $scope.removeTrack = function(track, album) {
-        Playlist.removeTrack(track, album);
-        $scope.playlist = Playlist.playlist;
-        if (current.album === album && current.track >= track) {
-          current.track--;
-        }
-      }
-
-      $scope.removeAlbum = function(album) {
-        Playlist.removeAlbum(album);
-        $scope.playlist = Playlist.playlist;
-      }
 
     } ]);

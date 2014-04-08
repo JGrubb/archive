@@ -42,18 +42,15 @@
             <i class="fa fa-list-ul fa-2x show-for-small-only mobile-toggle" ng-click="playlist.visible = !playlist.visible"></i>
             <ul>
               <li ng-repeat="album in playlist" class="album">
-                <i class="fa fa-minus-circle fa-lg album-toggle" ng-click="album.showAlbum = !album.showAlbum" ng-show="album.showAlbum"></i>
-                <i class="fa fa-plus-circle fa-lg album-toggle" ng-click="album.showAlbum = !album.showAlbum" ng-hide="album.showAlbum"></i>
                 <a ui-sref="list({ collection: album.collection })" class="collection">
                   <i>{{ album.collection }}</i>
                 </a> -
                 <a ui-sref="detail({ id: album.tracks[0].orig })" class="date">
                   <small>{{ album.date }}</small>
                 </a>
-                <i class="fa fa-times" ng-click="removeAlbum(album)"></i>
-                <ol ng-show="album.showAlbum">
+                <ol>
                   <li class="track" ng-repeat="track in album.tracks" ng-class="{ current: current.track === $index && current.album === $parent.$index }">
-                    <a ng-click="emit('toPlayer', 'play', $index, $parent.$index)">{{ track.title || track.path }}</a>
+                    <a ng-click="play($index, $parent.$index)">{{ track.title || track.path }}</a>
                     <i ng-show="current.track === $index && current.album === $parent.$index" class="fa fa-volume-up"></i>
                   </li>
                 </ol>
@@ -107,8 +104,9 @@
         <script src="scripts/directives/player.js"></script>
         <script src="scripts/controllers/player.js"></script>
         <script src="scripts/services/playlist.js"></script>
-        <script src="scripts/services/messageBus.js"></script>
         <script src="scripts/services/db.js"></script>
+        <script src="scripts/services/emit.js"></script>
+        <script src="scripts/services/current.js"></script>
         <!-- endbuild -->
 </body>
 </html>
