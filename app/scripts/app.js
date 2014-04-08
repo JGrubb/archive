@@ -5,6 +5,7 @@ angular.module('archiveApp', [
   'LocalStorageModule',
   'chieffancypants.loadingBar',
   'infinite-scroll',
+  'pouchdb',
   'underscore'
 ])
   .config(function($stateProvider, $urlRouterProvider) {

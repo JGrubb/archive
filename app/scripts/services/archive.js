@@ -1,27 +1,28 @@
 angular.module('archiveApp')
-  .factory('Archive', function ($http, $q, localStorageService) {
+  .factory('Archive', function ($http, $q, db) {
     var ls = localStorageService;
     var archiveSearchUrl = 'https://archive.org/advancedsearch.php';
     var archiveShowUrl = 'https://archive.org/details/';
 
     var requestIndex = function() {
       var d = $q.defer();
-      if (ls.get('idx')) {
-        d.resolve(ls.get('idx'))
-      } else {
+      db.get('idx').then(function(doc) {
+        d.resolve(doc.data);
+      }, function() {
         $http.get('index.json').success(function(data) {
           d.resolve(data);
-          ls.set('idx', data);
+          db.put({ _id: 'idx', data: data, updated: +new Date() });
         });
-      }
+      });
       return d.promise;
     }
 
     var requestList = function(collection) {
       var d = $q.defer();
-      if (ls.get(collection)) {
-        d.resolve(ls.get(collection));
-      } else {
+
+      db.get(collection).then(function(doc) {
+        d.resolve(doc.data);
+      }, function() {
         $http({
           method: 'JSONP',
           url: archiveSearchUrl,
@@ -45,19 +46,23 @@ angular.module('archiveApp')
           }
         }).success(function(data) {
           d.resolve(data);
-          ls.set(collection, data);
+          var now = +new Date();
+          db.put({ _id: collection, data: data, updated: now });
         }).error(function(message) {
           d.reject(message);
         });
-      };
+      });
+      
       return d.promise;
     }
 
     var requestShow = function(id) {
       var d = $q.defer();
-      if (ls.get(id)) {
-        d.resolve(ls.get(id)); 
-      } else {
+
+      db.get(id).then(function(doc) {
+        console.log(doc);
+        d.resolve(doc.data); 
+      }, function() {
         $http({
           method: 'JSONP',
           url: archiveShowUrl + id,
@@ -67,9 +72,11 @@ angular.module('archiveApp')
           }
         }).success(function(data) {
           d.resolve(data);
-          ls.set(id, data)
+          var now = +new Date();
+          db.put({ _id: id, data: data, updated: now });
         });
-      };
+      });
+
       return d.promise;
     }
 
