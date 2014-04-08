@@ -31,7 +31,7 @@ angular.module('archiveApp')
         var tracks = _.filter(data.files, function(item) {
           return item.format === 'VBR MP3';
         });
-        //console.log(tracks);
+        console.log(tracks);
 
         $scope.notTracks = notTracks;
         $scope.tracks = tracks;

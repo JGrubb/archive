@@ -18,7 +18,6 @@ angular.module('archiveApp')
     //$scope.yearOf = years.slice(0)[0];
     $scope.limit = 20;
     $scope.currentlyPlaying = Playlist.playlist()[0].detail;
-    console.log($scope.currentlyPlaying);
   });
 
   $scope.loadMore = function() {
