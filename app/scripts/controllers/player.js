@@ -102,6 +102,7 @@ angular.module('archiveApp')
           $scope.$parent.current = current;
 
           $rootScope.$on('player:play', function(event, args) {
+            ls.set('currentTime', 0);
             $scope.play(args.track, args.album);
           });
 
