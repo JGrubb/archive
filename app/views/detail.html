@@ -20,12 +20,6 @@
         <td><a ng-href="http://{{ file.server + file.dir + file.path }}">Download</a></td>
       </tr>
     </table>
-    <table class="column large-12">
-      <tr ng-repeat="item in metakeys">
-        <td>{{ item }}</td>
-        <td>{{ metadata[item][0] }}</td>
-      </tr>
-    </table>
     <div class="column large-12">
       <h4>Reviews</h4>
       <div ng-repeat="review in reviews.reviews">
