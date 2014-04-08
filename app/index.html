@@ -42,14 +42,15 @@
             <i class="fa fa-list-ul fa-2x show-for-small-only mobile-toggle" ng-click="playlist.visible = !playlist.visible"></i>
             <ul>
               <li ng-repeat="album in playlist" class="album">
-                <i class="fa fa-minus-circle fa-lg" ng-click="album.showAlbum = !album.showAlbum" ng-show="album.showAlbum"></i>
-                <i class="fa fa-plus-circle fa-lg" ng-click="album.showAlbum = !album.showAlbum" ng-hide="album.showAlbum"></i>
+                <i class="fa fa-minus-circle fa-lg album-toggle" ng-click="album.showAlbum = !album.showAlbum" ng-show="album.showAlbum"></i>
+                <i class="fa fa-plus-circle fa-lg album-toggle" ng-click="album.showAlbum = !album.showAlbum" ng-hide="album.showAlbum"></i>
                 <a ui-sref="list({ collection: album.collection })" class="collection">
                   <i>{{ album.collection }}</i>
                 </a> -
                 <a ui-sref="detail({ id: album.tracks[0].orig })" class="date">
                   <small>{{ album.date }}</small>
                 </a>
+                <i class="fa fa-times" ng-click="removeAlbum(album)"></i>
                 <ol ng-show="album.showAlbum">
                   <li class="track" ng-repeat="track in album.tracks" ng-class="{ current: current.track === $index && current.album === $parent.$index }">
                     <a ng-click="emit('toPlayer', 'play', $index, $parent.$index)">{{ track.title || track.path }}</a>
@@ -80,7 +81,9 @@
     <!-- bower:js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/fastclick/lib/fastclick.js"></script>
     <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
