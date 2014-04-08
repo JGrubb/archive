@@ -14,24 +14,24 @@ angular.module('archiveApp')
         $scope.metakeys = Object.keys($scope.metadata);
 
         for (var file in data.files) {
-          data.files[file].path = file;
-          data.files[file].server = data.server;
-          data.files[file].dir = data.dir;
-          data.files[file].band = data.metadata.creator[0];
-          data.files[file].date = data.metadata.date[0];
-          data.files[file].orig = $stateParams.id;
-          data.files[file].collection = data.metadata.collection[0];
-          data.files[file].url = 'http://' + data.server + data.dir + file;
+          _.extend(data.files[file], {
+            path: file,
+            band: data.metadata.creator[0],
+            date: data.metadata.date[0],
+            orig: $stateParams.id,
+            collection: data.metadata.collection[0],
+            url: 'http://' + data.server + data.dir + file
+          });
         }
 
         var notTracks = _.filter(data.files, function(item) {
           return !item.hasOwnProperty('length');
         });
-        
+
         var tracks = _.filter(data.files, function(item) {
           return item.format === 'VBR MP3';
         });
-        //console.log(tracks);
+        console.log(tracks);
 
         $scope.notTracks = notTracks;
         $scope.tracks = tracks;

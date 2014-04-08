@@ -1,11 +1,11 @@
 angular.module('archiveApp')
   .factory('Archive', function ($http, $q, db) {
-    var ls = localStorageService;
     var archiveSearchUrl = 'https://archive.org/advancedsearch.php';
     var archiveShowUrl = 'https://archive.org/details/';
 
     var requestIndex = function() {
       var d = $q.defer();
+
       db.get('idx').then(function(doc) {
         d.resolve(doc.data);
       }, function() {
@@ -14,6 +14,7 @@ angular.module('archiveApp')
           db.put({ _id: 'idx', data: data, updated: +new Date() });
         });
       });
+
       return d.promise;
     }
 
@@ -52,7 +53,7 @@ angular.module('archiveApp')
           d.reject(message);
         });
       });
-      
+
       return d.promise;
     }
 
@@ -60,8 +61,8 @@ angular.module('archiveApp')
       var d = $q.defer();
 
       db.get(id).then(function(doc) {
-        console.log(doc);
-        d.resolve(doc.data); 
+        //console.log(doc);
+        d.resolve(doc.data);
       }, function() {
         $http({
           method: 'JSONP',
