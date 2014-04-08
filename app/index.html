@@ -38,8 +38,7 @@
         <!-- Add your site or application content here -->
         <div class="container">
         <div id="main" class="row">
-          <div ng-cloak class="ng-cloak column large-4 medium-4" id="playlist" ng-class="{show: playlist.visible}">
-            <i class="fa fa-list-ul fa-2x show-for-small-only mobile-toggle" ng-click="playlist.visible = !playlist.visible"></i>
+          <div ng-cloak class="ng-cloak column large-4 medium-4 show-for-medium-up" id="playlist">
             <ul>
               <li ng-repeat="album in playlist" class="album">
                 <a ui-sref="list({ collection: album.collection })" class="collection">

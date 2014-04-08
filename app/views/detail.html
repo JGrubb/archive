@@ -3,17 +3,18 @@
     <li><a ui-sref="home">Home</a></li>
     <li><a ui-sref="list({ collection: metadata.collection[0] })">{{ metadata.collection[0] }}</a></li>
   </ul>
-  <div class="column large-12">
+  <div class="column large-12" id="title">
     <h4>{{ metadata.title[0] }}</h4>
   </div>
-  <div class="column large-6">
-    <ol>
-      <li ng-repeat="track in tracks">
-      <a class="tiny" ng-click="play($index)">{{ track.title || track.path }}</a>
+  <div class="column large-12" id="tracklist">
+    <ul>
+      <li ng-repeat="track in tracks" ng-click="play($index)"
+        ng-class="{ current: current.track === $index && track.orig === currentlyPlaying() }">
+        <span>{{ $index + 1 }}</span>{{ track.title || track.path }}
       </li>
-    </ol>
+    </ul>
   </div>
-    <table class="column large-6">
+    <table class="column large-12">
       <tr ng-repeat="file in notTracks">
         <td>{{ file.format }}</td>
         <td><a ng-href="http://{{ file.server + file.dir + file.path }}">Download</a></td>

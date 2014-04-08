@@ -11,7 +11,7 @@ angular.module('archiveApp')
       }, function() {
         $http.get('index.json').success(function(data) {
           d.resolve(data);
-          db.put({ _id: 'idx', data: data, updated: +new Date() });
+          db.put({ _id: 'idx', data: data });
         });
       });
 
@@ -47,8 +47,7 @@ angular.module('archiveApp')
           }
         }).success(function(data) {
           d.resolve(data);
-          var now = +new Date();
-          db.put({ _id: collection, data: data, updated: now });
+          db.put({ _id: collection, data: data });
         }).error(function(message) {
           d.reject(message);
         });
@@ -73,8 +72,7 @@ angular.module('archiveApp')
           }
         }).success(function(data) {
           d.resolve(data);
-          var now = +new Date();
-          db.put({ _id: id, data: data, updated: now });
+          db.put({ _id: id, data: data });
         });
       });
 

@@ -99,7 +99,6 @@ angular.module('archiveApp')
             }
             if ($scope.playing) $scope.play();
           };
-          $scope.$parent.current = current;
 
           $rootScope.$on('player:play', function(event, args) {
             ls.set('currentTime', 0);

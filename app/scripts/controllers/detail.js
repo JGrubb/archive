@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('archiveApp')
-  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Playlist', '_', 'emit',
-    function ($scope, Archive, $stateParams, Playlist, _, emit) {
+  .controller('DetailController', ['$scope', 'Archive', '$stateParams', 'Playlist', '_', 'emit', 'Current',
+    function ($scope, Archive, $stateParams, Playlist, _, emit, Current) {
       Archive.getShow($stateParams.id).then(function(data) {
         //console.log(data);
         $scope.data = data;
@@ -35,7 +35,10 @@ angular.module('archiveApp')
 
         $scope.notTracks = notTracks;
         $scope.tracks = tracks;
+        $scope.id = $stateParams.id;
       });
+
+      $scope.current = Current;
 
       $scope.addTrack = function(track) {
         Playlist.addTrack(track);
@@ -45,7 +48,13 @@ angular.module('archiveApp')
         Playlist.addShow(show);
       }
 
+      $scope.currentlyPlaying = function() {
+        var playlist = Playlist.playlist();
+        return playlist[0].detail;
+      }
+
       $scope.play = function (index) {
+        Current.track = index;
         emit('playlist:clear');
         var playlist = Playlist.addShow($scope.tracks);
         emit('player:play', {album: 0, track: index});

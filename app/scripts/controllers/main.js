@@ -14,7 +14,6 @@ angular.module('archiveApp')
       $scope.playlist = Playlist.playlist();
 
       $rootScope.$on('playlist:clear', function() {
-        console.log('testing');
         $scope.playlist = Playlist.clearPlaylist();
       });
 
