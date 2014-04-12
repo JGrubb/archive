@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('archiveApp')
-.controller('MainController', [ '$scope', 'Archive', 'Playlist', '$rootScope', 'emit', 'Current',
-    function ($scope, Archive, Playlist, $rootScope, emit, Current) {
+.controller('MainController', [ '$scope', 'Archive', 'Playlist', '$rootScope', 'emit', 'Current', '_',
+    function ($scope, Archive, Playlist, $rootScope, emit, Current, _) {
       Archive.getIndex().then(function(data) {
         $scope.bands = data;
-        $scope.bands.sort( function() { return 0.5 - Math.random() } );
+        $scope.AZ = _.map(_.range(65, (65 + 26)), function(item) { return String.fromCharCode(item)});
+
+        //$scope.bands.sort( function() { return 0.5 - Math.random() } );
       });
 
       var current = Current;

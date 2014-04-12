@@ -35,7 +35,7 @@
       <tr ng-repeat="show in shows | orderBy:order | filter:query | filter:{ year:yearOf } | limitTo:limit">
         <td>
           <span ui-sref="detail({ id: show.identifier })">{{ show.title }}</span><br >
-          <small><em>{{ show.date | date : mediumDate }} - {{ show.downloads }} downloads</em></small><i ng-show="currentlyPlaying === show.identifier" class="fa fa-volume-up"></i>
+          <small><em>{{ show.date | date : mediumDate }} - {{ show.downloads }} downloads</em> | Avg Rating - {{ show.avg_rating || 0 }}</small><i ng-show="currentlyPlaying === show.identifier" class="fa fa-volume-up"></i>
         </td>
         <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Detail</a></td>
       </tr>

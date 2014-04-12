@@ -27,8 +27,7 @@
     <![endif]-->
     <div ng-controller="MainController">
       <div id="main-wrap">
-        <div class="container">
-        <div class="contain-to-grid">
+        <div class="contain-to-grid" id="topbar">
           <nav id="header" class="top-bar">
             <section aui-player class="top-bar-section ng-cloak" ng-cloak></section>
           </nav>
@@ -36,7 +35,7 @@
       </div>
 
         <!-- Add your site or application content here -->
-        <div class="container">
+      <div class="container">
         <div id="main" class="row">
           <div ng-cloak class="ng-cloak column large-4 medium-4 show-for-medium-up" id="playlist">
             <ul>
@@ -58,7 +57,6 @@
           </div>
           <div id="body" class="column large-8 medium-8" ui-view></div>
         </div>
-      </div>
       </div>
     </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
