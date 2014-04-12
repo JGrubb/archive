@@ -11,6 +11,7 @@
       <li ng-repeat="track in tracks" ng-click="play($index)"
         ng-class="{ current: current.track === $index && track.orig === currentlyPlaying() }">
         <span>{{ $index + 1 }}</span>{{ track.title || track.path }}<span class="track-length">{{ track.length}}</span>
+        <i ng-show="current.track === $index && track.orig === currentlyPlaying()" class="fa fa-volume-up"></i>
       </li>
     </ul>
   </div>

@@ -32,9 +32,9 @@ angular.module('archiveApp')
             //console.log(currentTime);
             if (angular.isDefined(track)) current.track = track;
             if (angular.isDefined(album)) current.album = album;
-
+            var currentTrack = playlist[current.album].tracks[current.track];
             if (!paused) {
-              audio.src = playlist[current.album].tracks[current.track].url;
+              audio.src = currentTrack.url;
 
               audio.addEventListener('canplay', function() {
                 audio.currentTime = ls.get('currentTime') || 0;
@@ -45,7 +45,7 @@ angular.module('archiveApp')
             $scope.playing = true;
             paused = false;
             ls.set('playlist.current', current);
-            $scope.currentlyPlaying = playlist[current.album].tracks[current.track].title;
+            $scope.currentlyPlaying = currentTrack.title || currentTrack.path;
             //console.dir(audio);
             interval = $interval(function() {
               if ($scope.playing) {
