@@ -8,8 +8,8 @@ angular.module("archiveApp").controller "DetailController", [
   "emit"
   "Current"
   ($scope, Archive, $stateParams, Playlist, _, emit, Current) ->
-    Archive.getShow($stateParams.id).then (data) ->
-      console.log data
+
+    setShowStuff = (data) ->
       $scope.data = data
       $scope.metadata = data.metadata
       $scope.item = data.item
@@ -36,7 +36,10 @@ angular.module("archiveApp").controller "DetailController", [
       $scope.notTracks = notTracks
       $scope.tracks = tracks
       $scope.id = $stateParams.id
-      return
+
+
+    Archive.getShow($stateParams.id).then (data) ->
+      setShowStuff(data)
 
     $scope.current = Current
     $scope.addTrack = (track) ->
@@ -59,6 +62,9 @@ angular.module("archiveApp").controller "DetailController", [
         album: 0
         track: index
 
-    $scope.refresh = (id) ->
-      console.log(id)
+    $scope.refresh = ->
+      Archive.update($stateParams.id).then ->
+        Archive.getShow($stateParams.id).then (data) ->
+          setShowStuff(data)
+
 ]

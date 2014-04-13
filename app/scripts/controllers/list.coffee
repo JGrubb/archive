@@ -7,7 +7,8 @@ angular.module("archiveApp").controller "ListController", [
   "Playlist"
   ($scope, Archive, $stateParams, _, Playlist) ->
     fullSet = undefined
-    Archive.getList($stateParams.collection).then (data) ->
+
+    setCollectionStuff = (data) ->
       fullSet = data.response.docs
       years = _.uniq(_.pluck(fullSet, "year"))
       $scope.shows = fullSet
@@ -17,7 +18,10 @@ angular.module("archiveApp").controller "ListController", [
       #$scope.yearOf = years.slice(0)[0];
       $scope.limit = 20
       $scope.currentlyPlaying = Playlist.playlist()[0].detail
-      return
+
+    Archive.getList($stateParams.collection).then (data) ->
+      setCollectionStuff(data)
+
 
     $scope.loadMore = ->
       $scope.limit += 20
@@ -30,4 +34,9 @@ angular.module("archiveApp").controller "ListController", [
       else
         $scope.yearOf = year
       return
+
+    $scope.refresh = ->
+      Archive.update($stateParams.collection).then ->
+        Archive.getList($stateParams.collection).then (data) ->
+          setCollectionStuff(data)
 ]

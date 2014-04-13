@@ -75,9 +75,8 @@ angular.module("archiveApp").factory "Archive", ($http, $q, db) ->
     d.promise
 
   update = (id) ->
-    d = $q.defer()
     db.get(id).then( (doc) ->
-      console.log(doc)
+      db.remove(doc)
     )
 
   getIndex: ->
@@ -88,3 +87,6 @@ angular.module("archiveApp").factory "Archive", ($http, $q, db) ->
 
   getShow: (id) ->
     requestShow id
+
+  update: (id) ->
+    update id
