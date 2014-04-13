@@ -5,6 +5,7 @@
   </ul>
   <div class="column large-12" id="title">
     <h4>{{ metadata.title[0] }}</h4>
+    <button ng-click="refresh(metadata.identifier[0])">Refresh</button>
   </div>
   <div class="column large-12" id="tracklist">
     <ul>
@@ -15,22 +16,40 @@
       </li>
     </ul>
   </div>
-    <table class="column large-12">
+  <div id="show-info" class="column large-12">
+    <h4>Info</h4>
+    <table>
+      <tr>
+        <td>Taper</td>
+        <td>{{ metadata.taper[0] }}</td>
+      </tr>
+      <tr>
+        <td>Source</td>
+        <td>{{ metadata.source[0] }}</td>
+      </tr>
+      <tr>
+        <td>Lineage</td>
+        <td>{{ metadata.lineage[0] }}</td>
+      </tr>
+      <tr>
+        <td>Notes</td>
+        <td>{{ metadata.notes[0] }}</td>
+      </tr>
       <tr ng-repeat="file in notTracks">
         <td>{{ file.format }}</td>
         <td><a ng-href="http://{{ file.server + file.dir + file.path }}">Download</a></td>
       </tr>
     </table>
-    <div class="column large-12">
-      <h4>Reviews</h4>
-      <div ng-repeat="review in reviews.reviews">
-        <blockquote>
-          {{ review.reviewbody }}
-          <cite>
-            {{ review.reviewer }} - {{ review.reviewdate }}
-          </cite>
-        </blockquote>
-      </div>
+  </div>
+  <div class="column large-12" ng-if="reviews.reviews.length">
+    <h4>Reviews  <small> avg rating - {{ reviews.info.avg_rating }}</small></h4>
+    <div ng-repeat="review in reviews.reviews">
+      <blockquote>
+        {{ review.reviewbody }}
+        <cite>
+          {{ review.reviewer }} - {{ review.reviewdate }}
+        </cite>
+      </blockquote>
     </div>
   </div>
 </div>

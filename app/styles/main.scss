@@ -3,11 +3,13 @@
 #main {
   overflow: hidden;
   width: 100%;
+  margin-top: 1em;
+  margin-bottom: 10em;
 }
 
 .site-name {
   text-align: center;
-  padding: 1em 0;
+  padding: .5em 0;
 }
 
 .ng-cloak {
@@ -135,6 +137,10 @@
       background: #eee;
     }
   }
+}
+
+#show-info {
+  margin-top: 2em;
 }
 
 blockquote {

@@ -3,7 +3,7 @@
   <div class="large-12 column" id="search">
     <input ng-model="query" type="text" placeholder="Search here...">
   </div>
-  <div ng-repeat="band in bands | filter:query | limitTo:limit" class="large-6 column">
+  <div ng-repeat="band in bands | filter:query:strict | limitTo:limit" class="large-6 column">
     <h6><a ui-sref="list({ collection: band.collection })">{{ band.name }}</a></h6>
   </div>
 </div>
