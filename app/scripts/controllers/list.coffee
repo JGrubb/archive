@@ -5,8 +5,11 @@ angular.module("archiveApp").controller "ListController", [
   "$stateParams"
   "_"
   "Playlist"
-  ($scope, Archive, $stateParams, _, Playlist) ->
+  "Current"
+  ($scope, Archive, $stateParams, _, Playlist, Current) ->
     fullSet = undefined
+
+    Current.state = "list"
 
     setCollectionStuff = (data) ->
       fullSet = data.response.docs

@@ -8,7 +8,7 @@
   <div class="large-12 columns button-bar">
     <ul class="button-group">
       <li ng-repeat="year in years">
-        <button class="tiny button" ng-click="setYear(year)">{{ year }}</button>
+        <button class="tiny" ng-click="setYear(year)">{{ year }}</button>
       </li>
     </ul>
   </div>
@@ -17,7 +17,7 @@
       <input ng-model="query" type="text">
     </label>
   </div>
-  <div class="large-6 columns">
+  <div class="large-4 medium-9 small-8 columns">
     <label>Order by
       <select ng-model="order">
         <option value="-date" selected="selected">Date</option>
@@ -25,6 +25,10 @@
         <option value="-avg_rating">Average Rating</option>
       </select>
     </label>
+  </div>
+  <div class="large-2 medium-3 small-4 column">
+    <label>&nbsp;</label>
+    <button class="tiny success" ng-click="refresh()"><i class="fa fa-refresh fa-lg"></i></button>
   </div>
   <div class="column large-12">
     <table infinite-scroll="loadMore()" id="showlist">
@@ -37,7 +41,7 @@
           <span ui-sref="detail({ id: show.identifier })">{{ show.title }}</span><br >
           <small><em>{{ show.date | date : mediumDate }} - {{ show.downloads }} downloads</em> | Avg Rating - {{ show.avg_rating || 0 }}</small><i ng-show="currentlyPlaying === show.identifier" class="fa fa-volume-up"></i>
         </td>
-        <td><a ui-sref="detail({ id: show.identifier })" class="tiny radius button">Detail</a></td>
+        <td><a ui-sref="detail({ id: show.identifier })" class="tiny secondary radius button">Detail</a></td>
       </tr>
     </table>
   </div>

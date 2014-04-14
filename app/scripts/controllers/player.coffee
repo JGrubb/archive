@@ -7,7 +7,8 @@ angular.module("archiveApp").controller "PlayerController", [
   "$rootScope"
   "$interval"
   "Current"
-  (Playlist, $scope, audio, localStorageService, $rootScope, $interval, Current) ->
+  "$state"
+  (Playlist, $scope, audio, localStorageService, $rootScope, $interval, Current, $state) ->
     ls = localStorageService
     paused = false
     current = Current
@@ -16,6 +17,15 @@ angular.module("archiveApp").controller "PlayerController", [
     $scope.path = ""
     interval = undefined
     $scope.currentTime = "00:00"
+
+    $scope.state = $state
+    state = $state
+
+    playlist = Playlist.playlist()
+
+    $scope.currentAlbum = playlist[0].detail
+    $scope.collection = playlist[0].collection
+
     timeFormatter = (seconds) ->
       minutes = Math.floor(seconds / 60)
       seconds = seconds % 60
@@ -28,7 +38,7 @@ angular.module("archiveApp").controller "PlayerController", [
       playlist = Playlist.playlist()
       return  unless playlist.length
 
-      #console.log(currentTime);
+      #console.log playlist
       current.track = track  if angular.isDefined(track)
       current.album = album  if angular.isDefined(album)
       currentTrack = playlist[current.album].tracks[current.track]
@@ -43,6 +53,10 @@ angular.module("archiveApp").controller "PlayerController", [
       paused = false
       ls.set "playlist.current", current
       $scope.currentlyPlaying = currentTrack.title or currentTrack.path
+      $scope.currentAlbum = playlist[0].detail
+      $scope.collection = playlist[0].collection
+
+      $scope.current = Current
 
       #console.dir(audio);
       interval = $interval(->
@@ -92,6 +106,18 @@ angular.module("archiveApp").controller "PlayerController", [
         current.album = (current.album + 1) % playlist.length
       $scope.play()  if $scope.playing
       return
+
+    $scope.back = ->
+      if $state.current.name is "detail"
+        $state.go('list', {collection: playlist[0].collection })
+      if $state.current.name is "list"
+        $state.go('home')
+
+    $scope.forward = ->
+      if $state.current.name is "home"
+        $state.go('list', { collection: playlist[0].collection })
+      if $state.current.name is "list"
+        $state.go('detail', { id: playlist[0].detail })
 
     $rootScope.$on "player:play", (event, args) ->
       ls.set "currentTime", 0

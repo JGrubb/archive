@@ -13,29 +13,25 @@ angular.module("archiveApp").controller "MainController", [
       $scope.AZ = _.map(_.range(65, (65 + 26)), (item) ->
         String.fromCharCode item
       )
-      $scope.bands.sort ->
-        0.5 - Math.random()
 
-      return
+    $scope.current = Current
 
-    current = Current
-    $scope.current = current
+    Current.state = "home"
+
     $scope.playlist = Playlist.playlist()
     $rootScope.$on "playlist:clear", ->
       $scope.playlist = Playlist.clearPlaylist()
-      return
 
     $scope.limit = 40
-    $scope.clearCache = ->
-      ls.clearAll()
-      return
 
     $scope.loadMore = ->
       $scope.limit += 20
-      return
 
     $scope.play = (track, album) ->
       emit "player:play",
         track: track
         album: album
+
+    $scope.randomize = ->
+      $scope.bands.sort -> 0.5 - Math.random()
 ]

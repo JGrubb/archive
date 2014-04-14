@@ -3,9 +3,11 @@
     <li><a ui-sref="home">Home</a></li>
     <li><a ui-sref="list({ collection: metadata.collection[0] })">{{ metadata.collection[0] }}</a></li>
   </ul>
-  <div class="column large-12" id="title">
+  <div class="column large-10 medium-10" id="title">
     <h4>{{ metadata.title[0] }}</h4>
-    <button ng-click="refresh()">Refresh</button>
+  </div>
+  <div class="column large-2 medium-2">
+    <button class="tiny success" ng-click="refresh()"><i class="fa fa-refresh fa-lg"></i></button>
   </div>
   <div class="column large-12" id="tracklist">
     <ul>

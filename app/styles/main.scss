@@ -39,6 +39,13 @@
   p {
     margin-bottom: 0;
   }
+  i.pointer {
+    position: relative;
+    top: .1em;
+    padding: .4em .75em;
+    cursor: pointer;
+    background: #333;
+  }
 }
 
 .control {

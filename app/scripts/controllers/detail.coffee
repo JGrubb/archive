@@ -42,6 +42,9 @@ angular.module("archiveApp").controller "DetailController", [
       setShowStuff(data)
 
     $scope.current = Current
+
+    Current.state = "detail"
+
     $scope.addTrack = (track) ->
       Playlist.addTrack track
       return
