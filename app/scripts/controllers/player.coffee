@@ -46,10 +46,6 @@ angular.module("archiveApp").controller "PlayerController", [
         audio.src = currentTrack.url
         audio.type = 'audio/mp3'
         audio.preload = 'auto'
-        audio.addEventListener "canplay", ->
-          audio.currentTime = ls.get("currentTime") or 0
-          return
-
       audio.play()
       console.log angular.element(audio)
       $scope.playing = true
@@ -68,7 +64,6 @@ angular.module("archiveApp").controller "PlayerController", [
           duration = Math.floor(audio.duration)
           $scope.currentTime = timeFormatter(currentTime)
           $scope.duration = timeFormatter(duration)
-          ls.set "currentTime", currentTime
         return
       , 1000)
       return
