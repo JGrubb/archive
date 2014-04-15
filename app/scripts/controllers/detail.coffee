@@ -10,7 +10,7 @@ angular.module("archiveApp").controller "DetailController", [
   ($scope, Archive, $stateParams, Playlist, _, emit, Current) ->
 
     setShowStuff = (data) ->
-      console.log data
+      #console.log data
       $scope.data = data
       $scope.metadata = data.metadata
       $scope.item = data.item
@@ -33,7 +33,7 @@ angular.module("archiveApp").controller "DetailController", [
         item.format is "VBR MP3"
       )
 
-      console.log tracks
+      #console.log tracks
       $scope.notTracks = notTracks
       $scope.tracks = tracks
       $scope.id = $stateParams.id

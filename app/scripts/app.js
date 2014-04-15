@@ -6,7 +6,7 @@ angular.module('archiveApp', [
   'chieffancypants.loadingBar',
   'infinite-scroll',
   'pouchdb',
-  'dropstore-ng',
+  //'dropstore-ng',
   'underscore'
 ])
   .config(function($stateProvider, $urlRouterProvider) {
@@ -25,6 +25,7 @@ angular.module('archiveApp', [
       controller: 'DetailController'
     });
     $urlRouterProvider.when('', '/');
+    //loggerProvider.setDEVMODE(false);
   });
 
 

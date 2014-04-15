@@ -7,23 +7,29 @@ angular.module("archiveApp").controller "MainController", [
   "emit"
   "Current"
   "_"
-  "dropstoreClient"
-  ($scope, Archive, Playlist, $rootScope, emit, Current, _, dropstoreClient) ->
+  "$window"
+  ($scope, Archive, Playlist, $rootScope, emit, Current, _, $window) ->
 
     favorites = []
 
-    #dropstoreClient.create({key: '7ytlxg8m6psb4ta'})
-    #.authenticate({interactive: true})
-    #.then (datastoreManager) ->
-    #  datastoreManager.openDefaultDatastore()
-    #.then (datastore) ->
-    #  favorites = datastore.getTable 'favorites'
-    #  console.log favorites
+    ###
+    dropstoreClient.create({key: '7ytlxg8m6psb4ta'})
+    .authenticate({interactive: true})
+    .then (datastoreManager) ->
+      datastoreManager.openDefaultDatastore()
+    .then (datastore) ->
+      favorites = datastore.getTable 'favorites'
+      console.log favorites
       #favorites.insert
       #  id: 'test'
       #  created: +new Date()
       #  data: JSON.stringify Playlist.playlist()
-    #  console.log favorites.query()
+      console.log favorites.query()
+    ###
+
+    $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+      #console.log(toParams)
+      $window.ga('send', 'pageview', JSON.stringify(toParams) )
 
     Archive.getIndex().then (data) ->
       $scope.bands = data

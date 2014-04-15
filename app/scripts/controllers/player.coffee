@@ -47,7 +47,7 @@ angular.module("archiveApp").controller "PlayerController", [
         audio.type = 'audio/mp3'
         audio.preload = 'auto'
       audio.play()
-      console.log angular.element(audio)
+      #console.log angular.element(audio)
       $scope.playing = true
       paused = false
       ls.set "playlist.current", current
@@ -66,7 +66,6 @@ angular.module("archiveApp").controller "PlayerController", [
           $scope.duration = timeFormatter(duration)
         return
       , 1000)
-      return
 
     $scope.pause = ->
       if $scope.playing
@@ -74,7 +73,6 @@ angular.module("archiveApp").controller "PlayerController", [
         audio.pause()
         $scope.playing = false
         paused = true
-      return
 
     $scope.prev = ->
       playlist = Playlist.playlist()
@@ -90,7 +88,6 @@ angular.module("archiveApp").controller "PlayerController", [
           current.album = (current.album - 1 + playlist.length) % playlist.length
           current.track = playlist[current.album].tracks.length - 1
       $scope.play()  if $scope.playing
-      return
 
     $scope.next = ->
       playlist = Playlist.playlist()
@@ -103,7 +100,6 @@ angular.module("archiveApp").controller "PlayerController", [
         current.track = 0
         current.album = (current.album + 1) % playlist.length
       $scope.play()  if $scope.playing
-      return
 
     $scope.back = ->
       if $state.current.name is "detail"
@@ -120,10 +116,9 @@ angular.module("archiveApp").controller "PlayerController", [
     $rootScope.$on "player:play", (event, args) ->
       ls.set "currentTime", 0
       $scope.play args.track, args.album
-      return
+
 
     audio.addEventListener "ended", (->
       $rootScope.$apply $scope.next
-      return
     ), false
 ]
