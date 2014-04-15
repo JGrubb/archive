@@ -6,7 +6,8 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+    <title>The Archive UI</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
@@ -70,6 +71,7 @@
       ga('send', 'pageview');
 
     </script>
+    <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -89,6 +91,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/pouchdb/dist/pouchdb-nightly.js"></script>
     <script src="bower_components/angular-pouchdb/angular-pouchdb.js"></script>
+    <script src="bower_components/dropstore-ng/dropstore-ng.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -104,6 +107,7 @@
         <script src="scripts/services/db.js"></script>
         <script src="scripts/services/emit.js"></script>
         <script src="scripts/services/current.js"></script>
+        <script src="scripts/services/favorites.js"></script>
         <!-- endbuild -->
 </body>
 </html>

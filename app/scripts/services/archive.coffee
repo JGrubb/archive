@@ -8,20 +8,20 @@ angular.module("archiveApp").factory "Archive", [
     archiveShowUrl = "https://archive.org/details/"
     requestIndex = ->
       d = $q.defer()
-      db.get("idx").then ((doc) ->
+      db.cache.get("idx").then ((doc) ->
         d.resolve doc.data
         return
       ), ->
         $http.get("index.json").success (data) ->
           d.resolve data
-          db.put
+          db.cache.put
             _id: "idx"
             data: data
       d.promise
 
     requestList = (collection) ->
       d = $q.defer()
-      db.get(collection).then ((doc) ->
+      db.cache.get(collection).then ((doc) ->
         d.resolve doc.data
       ), ->
         $http(
@@ -51,7 +51,7 @@ angular.module("archiveApp").factory "Archive", [
             save: "yes"
         ).success((data) ->
           d.resolve data
-          db.put
+          db.cache.put
             _id: collection
             data: data
         ).error (message) ->
@@ -61,7 +61,7 @@ angular.module("archiveApp").factory "Archive", [
 
     requestShow = (id) ->
       d = $q.defer()
-      db.get(id).then ((doc) ->
+      db.cache.get(id).then ((doc) ->
 
         d.resolve doc.data
       ), ->
@@ -73,7 +73,7 @@ angular.module("archiveApp").factory "Archive", [
             callback: "JSON_CALLBACK"
         ).success (data) ->
           d.resolve data
-          db.put
+          db.cache.put
             _id: id
             data: data
 
@@ -81,7 +81,7 @@ angular.module("archiveApp").factory "Archive", [
 
     update = (id) ->
       db.get(id).then( (doc) ->
-        db.remove(doc)
+        db.cache.remove(doc)
       )
 
     getIndex: ->

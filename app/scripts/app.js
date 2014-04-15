@@ -6,6 +6,7 @@ angular.module('archiveApp', [
   'chieffancypants.loadingBar',
   'infinite-scroll',
   'pouchdb',
+  'dropstore-ng',
   'underscore'
 ])
   .config(function($stateProvider, $urlRouterProvider) {

@@ -44,11 +44,14 @@ angular.module("archiveApp").controller "PlayerController", [
       currentTrack = playlist[current.album].tracks[current.track]
       unless paused
         audio.src = currentTrack.url
+        audio.type = 'audio/mp3'
+        audio.preload = 'auto'
         audio.addEventListener "canplay", ->
           audio.currentTime = ls.get("currentTime") or 0
           return
 
       audio.play()
+      console.log angular.element(audio)
       $scope.playing = true
       paused = false
       ls.set "playlist.current", current

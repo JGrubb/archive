@@ -36,6 +36,7 @@ angular.module('archiveApp')
     };
 
     var addShow = function(tracks) {
+      console.log(tracks)
       if (playlist.length && playlist.slice(-1)[0].album === tracks[0].album) {
         // just replace the whole show with the ordered copy, because NG don't like
         // copies of things in it's ng-repeats
