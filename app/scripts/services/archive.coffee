@@ -80,7 +80,7 @@ angular.module("archiveApp").factory "Archive", [
       d.promise
 
     update = (id) ->
-      db.get(id).then( (doc) ->
+      db.cache.get(id).then( (doc) ->
         db.cache.remove(doc)
       )
 

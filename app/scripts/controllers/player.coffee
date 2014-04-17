@@ -18,6 +18,19 @@ angular.module("archiveApp").controller "PlayerController", [
     interval = undefined
     $scope.currentTime = "00:00"
 
+    $interval ->
+      $scope.timeline = {width: "#{(audio.currentTime / audio.duration) * 100}%"}
+    , 250
+
+    $scope.setTime = ($event) ->
+      #console.log $event
+      x = $event.clientX
+      width = window.innerWidth
+      audio.pause() unless paused
+      length = audio.duration
+      audio.currentTime = length * (x / width)
+      audio.play() unless paused
+
     $scope.state = $state
     state = $state
 
@@ -65,7 +78,7 @@ angular.module("archiveApp").controller "PlayerController", [
           $scope.currentTime = timeFormatter(currentTime)
           $scope.duration = timeFormatter(duration)
         return
-      , 1000)
+      , 250)
 
     $scope.pause = ->
       if $scope.playing

@@ -24,14 +24,9 @@
   z-index: 99;
 }
 
-.top-bar {
-  height: auto;
-}
-
 #player-zone {
   text-align: center;
   color: white;
-  padding: .25em 1em;
   background: rgba(255,255,255,0.1);
   li {
     margin: auto;
@@ -46,6 +41,19 @@
     cursor: pointer;
     background: #333;
   }
+  #timeline .inner {
+    height: .5em;
+    background: #008cba;
+    width: 0;
+    transition: height .3s
+  }
+  #timeline:hover .inner {
+    height: 1em;
+  }
+}
+
+#player {
+  padding-bottom: .3em
 }
 
 .control {

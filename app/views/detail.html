@@ -39,7 +39,7 @@
       </tr>
       <tr ng-repeat="file in notTracks">
         <td>{{ file.format }}</td>
-        <td><a ng-href="http://{{ file.server + file.dir + file.path }}">Download</a></td>
+        <td><a ng-href="{{ file.url }}">Download</a></td>
       </tr>
     </table>
   </div>

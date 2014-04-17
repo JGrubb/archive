@@ -1,5 +1,8 @@
-<ul class="right" id="player-zone">
+<ul id="player-zone">
   <div id="player">
+    <div id="timeline" ng-click="setTime($event)">
+      <div class="inner" ng-style="timeline"></div>
+    </div>
     <span ng-click="back()"><i class="fa fa-angle-left fa-lg pointer"></i></span>
     <button class="tiny control" ng-click="prev()">
       <i class="fa fa-fast-backward"></i>
@@ -15,7 +18,7 @@
     </button>
     <span ng-click="forward()"><i class="fa fa-angle-right fa-lg pointer"></i></span>
   </div>
-  <p class="currently-playing"><span ng-show="currentlyPlaying">{{ currentlyPlaying }}<br>
+  <p class="currently-playing"><span ng-show="currentlyPlaying">{{ currentlyPlaying }}
     <small>{{ currentTime }} / {{ duration }}</small></span>
   </p>
 </ul>
