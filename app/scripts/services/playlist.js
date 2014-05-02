@@ -1,12 +1,10 @@
 'use strict';
 
 angular.module('archiveApp')
-  .factory('Playlist', ['localStorageService', 'audio', '$rootScope', 'user', 'db',
-    function (localStorageService, audio, $rootScope, user, db) {
+  .factory('Playlist', ['localStorageService', 'audio', '$rootScope', 'db',
+    function (localStorageService, audio, $rootScope, db) {
 
     var ls = localStorageService;
-    user.set('grubb');
-    console.log(user.get());
     var playlist = ls.get('playlist') || [],
 
         removeTrack,
