@@ -12,21 +12,6 @@ angular.module("archiveApp").controller "MainController", [
 
     favorites = []
 
-    ###
-    dropstoreClient.create({key: '7ytlxg8m6psb4ta'})
-    .authenticate({interactive: true})
-    .then (datastoreManager) ->
-      datastoreManager.openDefaultDatastore()
-    .then (datastore) ->
-      favorites = datastore.getTable 'favorites'
-      console.log favorites
-      #favorites.insert
-      #  id: 'test'
-      #  created: +new Date()
-      #  data: JSON.stringify Playlist.playlist()
-      console.log favorites.query()
-    ###
-
     $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
       #console.log(toParams)
       $window.ga('send', 'pageview', JSON.stringify(toParams) )
@@ -39,23 +24,22 @@ angular.module("archiveApp").controller "MainController", [
 
     $scope.current = Current
 
-
-
     Current.state = "home"
 
-    $scope.playlist = Playlist.playlist()
-    $rootScope.$on "playlist:clear", ->
-      $scope.playlist = Playlist.clearPlaylist()
+    $rootScope.$on "playlist:ready", ->
+      #console.log('hewllo')
+      playlist = Playlist.getPlaylist()
+      #console.log(playlist)
+      playlist.tracks = angular.fromJson playlist.tracks
+      $scope.playlist = playlist
 
     $scope.limit = 40
 
     $scope.loadMore = ->
       $scope.limit += 20
 
-    $scope.play = (track, album) ->
-      emit "player:play",
-        track: track
-        album: album
+    $scope.play = (track) ->
+      emit "player:play", track
 
     $scope.randomize = ->
       $scope.bands.sort -> 0.5 - Math.random()

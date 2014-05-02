@@ -1,92 +1,57 @@
 'use strict';
 
 angular.module('archiveApp')
-  .factory('Playlist', ['localStorageService', 'audio', '$rootScope', 'user', 'db',
-    function (localStorageService, audio, $rootScope, user, db) {
+  .factory('Playlist', ['localStorageService', 'audio', '$rootScope', 'user', 'db', 'emit',
+    function (localStorageService, audio, $rootScope, user, db, emit) {
 
     var ls = localStorageService;
-    user.set('grubb');
-    console.log(user.get());
-    var playlist = ls.get('playlist') || [],
-
+    var playlist,
+        user = user.get(),
         removeTrack,
         addTrack,
         addShow;
 
-    var clearPlaylist = function() {
-      playlist = [];
-      ls.set('playlist', playlist);
-      ls.set('playlist.current', {album: 0, track: 0});
-      return playlist;
-    };
-
-    var addTrack = function(track) {
-      if (playlist.length && playlist.slice(-1)[0].album === track.album) {
-        // the last album in the queue and the incoming track are the same
-        playlist.slice(-1)[0].tracks.push(track);
-      } else {
-        // the queue is empty or this is from a different show
-        playlist.push({
-          album: track.album,
-          detail: track.orig,
-          tracks: [track],
-          collection: track.collection,
-          date: track.date
-        });
-      }
-      ls.set('playlist', playlist);
-    };
-
     var addShow = function(tracks) {
-      console.log(tracks)
-      if (playlist.length && playlist.slice(-1)[0].album === tracks[0].album) {
-        // just replace the whole show with the ordered copy, because NG don't like
-        // copies of things in it's ng-repeats
-        playlist.slice(-1)[0].tracks = tracks.slice(0);
-      } else {
-        playlist.push({
+      //console.log(db)
+      db.playlist.get(user).then(function(doc) {
+        db.playlist.put({
+          _rev: doc._rev,
           album: tracks[0].album,
           detail: tracks[0].orig,
-          // copy of tracks array
-          tracks: tracks.slice(0),
+          tracks: angular.toJson(tracks),
           collection: tracks[0].collection,
           date: tracks[0].date
+        }, user).then(function(response) {
+          db.playlist.get(user).then(function(doc) {
+            playlist = doc;
+            emit('playlist:ready');
+          })
         });
-      }
-      ls.set('playlist', playlist);
-      return playlist;
+      }).catch(function() {
+        db.playlist.put({
+          album: tracks[0].album,
+          detail: tracks[0].orig,
+          tracks: angular.toJson(tracks),
+          collection: tracks[0].collection,
+          date: tracks[0].date
+        }, user).then(function(response) {
+          db.playlist.get(user).then(function(doc) {
+            playlist = doc;
+            emit('playlist:ready');
+          })
+        });
+      });
     }
 
-    var removeTrack = function(track, album) {
-      var current = ls.get('playlist.current');
-      if (current.album === album) {
-        if (current.track === track) {
-          audio.pause();
-          current.track = 0;
-        }
-        if (current.track >= track) {
-          current.track--;
-        }
-        ls.set('playlist.current', current);
-      }
-      playlist[album].tracks.splice(track, 1);
-      ls.set('playlist', playlist);
-      return playlist;
-    }
+    db.playlist.get(user).then(function(doc) {
+      playlist = doc
+      emit('playlist:ready')
+    })
 
-    var removeAlbum = function(album) {
-      playlist.splice(album, 1);
-      ls.set('playlist', playlist);
-      return playlist;
-    }
 
     // Public API here
     return {
-      removeTrack: function(track, album) { return removeTrack(track, album); },
-      removeAlbum: function(album) { return removeAlbum(album); },
-      addTrack: function(track) { return addTrack(track); },
       addShow: function(show) { return addShow(show); },
-      clearPlaylist: function() { return clearPlaylist()},
-      playlist: function() { return playlist; }
+      getPlaylist: function() { return playlist; }
     };
   }]);

@@ -39,22 +39,13 @@
       <div class="container">
         <div id="main" class="row">
           <div ng-cloak class="ng-cloak column large-4 medium-4 show-for-medium-up" id="playlist">
-            <ul>
-              <li ng-repeat="album in playlist" class="album">
-                <a ui-sref="list({ collection: album.collection })" class="collection">
-                  <i>{{ album.collection }}</i>
-                </a> -
-                <a ui-sref="detail({ id: album.tracks[0].orig })" class="date">
-                  <small>{{ album.date }}</small>
-                </a>
-                <ol>
-                  <li class="track" ng-repeat="track in album.tracks" ng-class="{ current: current.track === $index && current.album === $parent.$index }">
-                    <a ng-click="play($index, $parent.$index)">{{ track.title || track.path }}</a>
-                    <i ng-show="current.track === $index && current.album === $parent.$index" class="fa fa-volume-up"></i>
-                  </li>
-                </ol>
+            <ol>
+              <h4>{{ playlist.collection }} - <a ui-sref="detail({ id: playlist.detail })">{{ playlist.album }}</a></h4>
+              <li class="track" ng-repeat="track in playlist.tracks">
+                <a ng-click="play($index)">{{ track.title || track.path }}</a>
+                <i ng-show="current.track === $index && current.album === $parent.$index" class="fa fa-volume-up"></i>
               </li>
-            </ul>
+            </ol>
           </div>
           <div id="body" class="column large-8 medium-8" ui-view></div>
         </div>

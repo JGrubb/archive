@@ -34,10 +34,11 @@ angular.module("archiveApp").controller "PlayerController", [
     $scope.state = $state
     state = $state
 
-    playlist = Playlist.playlist()
+    $rootScope.$on "playlist:ready", ->
+      playlist = Playlist.getPlaylist()
 
-    $scope.currentAlbum = playlist[0].detail
-    $scope.collection = playlist[0].collection
+      $scope.currentAlbum = playlist.detail
+      $scope.collection = playlist.collection
 
     timeFormatter = (seconds) ->
       minutes = Math.floor(seconds / 60)
@@ -47,14 +48,16 @@ angular.module("archiveApp").controller "PlayerController", [
       formatted = (if (not minutes) then "00:00" else minutes + ":" + seconds)
       formatted
 
-    $scope.play = (track, album) ->
-      playlist = Playlist.playlist()
-      return  unless playlist.length
+    $scope.play = (track) ->
+      #console.log(track)
+      playlist = Playlist.getPlaylist()
+      #console.log playlist
+      return unless playlist.tracks.length
 
       #console.log playlist
-      current.track = track  if angular.isDefined(track)
-      current.album = album  if angular.isDefined(album)
-      currentTrack = playlist[current.album].tracks[current.track]
+      current = track if angular.isDefined(track)
+      currentTrack = playlist.tracks[current]
+      #console.log currentTrack
       unless paused
         audio.src = currentTrack.url
         audio.type = 'audio/mp3'
@@ -65,8 +68,8 @@ angular.module("archiveApp").controller "PlayerController", [
       paused = false
       ls.set "playlist.current", current
       $scope.currentlyPlaying = currentTrack.title or currentTrack.path
-      $scope.currentAlbum = playlist[0].detail
-      $scope.collection = playlist[0].collection
+      $scope.currentAlbum = playlist.detail
+      $scope.collection = playlist.collection
 
       $scope.current = Current
 
@@ -88,31 +91,28 @@ angular.module("archiveApp").controller "PlayerController", [
         paused = true
 
     $scope.prev = ->
-      playlist = Playlist.playlist()
-      return  unless playlist.length
+      playlist = Playlist.getPlaylist()
+      return  unless playlist.tracks.length
       paused = false
       ls.set "currentTime", 0
       if audio.currentTime > 3
         audio.currentTime = 0
       else
-        if current.track > 0
-          current.track--
+        if current > 0
+          current--
         else
-          current.album = (current.album - 1 + playlist.length) % playlist.length
-          current.track = playlist[current.album].tracks.length - 1
-      $scope.play()  if $scope.playing
+          current = playlist.tracks.length - 1
+      $scope.play(current)  if $scope.playing
 
     $scope.next = ->
-      playlist = Playlist.playlist()
-      return  unless playlist.length
+      playlist = Playlist.getPlaylist()
+      return  unless playlist.tracks.length
       paused = false
-      ls.set "currentTime", 0
-      if playlist[current.album].tracks.length > (current.track + 1)
-        current.track++
+      if playlist.tracks.length > (current + 1)
+        current++
       else
-        current.track = 0
-        current.album = (current.album + 1) % playlist.length
-      $scope.play()  if $scope.playing
+        current = 0
+      $scope.play(current)  if $scope.playing
 
     $scope.back = ->
       if $state.current.name is "detail"
@@ -126,9 +126,9 @@ angular.module("archiveApp").controller "PlayerController", [
       if $state.current.name is "list"
         $state.go('detail', { id: playlist[0].detail })
 
-    $rootScope.$on "player:play", (event, args) ->
+    $rootScope.$on "player:play", (event, track) ->
       ls.set "currentTime", 0
-      $scope.play args.track, args.album
+      $scope.play track
 
 
     audio.addEventListener "ended", (->

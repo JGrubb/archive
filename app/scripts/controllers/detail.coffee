@@ -46,25 +46,18 @@ angular.module("archiveApp").controller "DetailController", [
 
     Current.state = "detail"
 
-    $scope.addTrack = (track) ->
-      Playlist.addTrack track
-      return
-
     $scope.addShow = (show) ->
       Playlist.addShow show
       return
 
     $scope.currentlyPlaying = ->
-      playlist = Playlist.playlist()
-      playlist[0].detail
+      #playlist = Playlist.playlist()
+      #playlist?[0].detail || ""
 
     $scope.play = (index) ->
-      Current.track = index
-      emit "playlist:clear"
+      Current = index
       playlist = Playlist.addShow($scope.tracks)
-      emit "player:play",
-        album: 0
-        track: index
+      emit "player:play", index
 
     $scope.refresh = ->
       Archive.update($stateParams.id).then ->

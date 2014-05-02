@@ -1,0 +1,9 @@
+<p>This is the settings view.</p>
+<form name="settings" ng-controller="SettingsController" class="row collapse">
+  <div class="large-9 column">
+    <input type="text" name="userName" ng-model="userName">
+  </div>
+  <div class="large-3 column">
+    <input type="submit" class="button postfix" ng-click="setUser(userName)">
+  </div>
+</form>

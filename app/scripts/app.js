@@ -14,6 +14,11 @@ angular.module('archiveApp', [
       url: '/',
       templateUrl: 'views/main.html'
     })
+    .state('settings', {
+      url: '/settings',
+      templateUrl: 'views/settings.html',
+      controller: 'SettingsController'
+    })
     .state('list', {
       url: '/:collection',
       templateUrl: 'views/list.html',
